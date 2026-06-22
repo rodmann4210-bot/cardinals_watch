@@ -142,6 +142,27 @@
   .bet-launch:hover{transform:translateY(-2px);background:var(--gold);color:var(--bg)}
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
+  /* ===== Stats Panel ===== */
+  .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
+  .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
+  .stab{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:12px;text-transform:uppercase;padding:10px 16px;color:var(--muted-2);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none;border-bottom:2px solid transparent}
+  .stab:hover{color:var(--ink)}
+  .stab.active{color:var(--gold);border-bottom-color:var(--gold)}
+  .stats-scroll{max-height:420px;overflow-y:auto;overflow-x:auto}
+  .stats-scroll::-webkit-scrollbar{width:6px;height:6px}.stats-scroll::-webkit-scrollbar-thumb{background:var(--burgundy-bright);border-radius:6px}
+  .stats-tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .stats-tbl thead tr{background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
+  .stats-tbl th{font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2);padding:8px 10px;text-align:right;white-space:nowrap;cursor:pointer;user-select:none;background:var(--panel-2)}
+  .stats-tbl th:first-child{text-align:left;position:sticky;left:0;background:var(--panel-2);z-index:3}
+  .stats-tbl th.sorted{color:var(--gold)}
+  .stats-tbl th:hover{color:var(--ink)}
+  .stats-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,.03);font-family:'Barlow Condensed';font-size:13.5px;letter-spacing:.3px;white-space:nowrap}
+  .stats-tbl td:first-child{text-align:left;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:var(--panel);z-index:1}
+  .stats-tbl tr:hover td{background:rgba(255,255,255,.04)}
+  .stats-tbl tr:hover td:first-child{background:rgba(255,255,255,.04)}
+  .stats-updated{font-family:'Barlow Condensed';font-size:12px;letter-spacing:.5px;color:var(--muted-2);padding:7px 16px;text-align:right;border-top:1px solid var(--line-soft);background:rgba(255,255,255,.02)}
+  .stats-err{padding:20px 16px;color:var(--muted);font-family:'Barlow Condensed';font-size:14px}
+  .sort-arrow{font-size:9px;margin-left:3px;opacity:.6}
 </style>
 </head>
 <body>
@@ -166,13 +187,33 @@
   <div class="grid">
     <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Roster</h2><span class="ct" id="rosterCt"></span></div><div class="p-body scroll" id="roster"><div class="loading">Pulling roster&hellip;</div></div></section>
     <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>Injured List</h2><span class="ct" id="injCt"></span></div><div class="p-body scroll" id="injuries"><div class="loading">Checking the report&hellip;</div></div></section>
+
+    <!-- ===== CARDINALS STATS PANEL ===== -->
+    <section class="panel col-12" id="statsPanel">
+      <div class="p-head"><span class="bar"></span><h2>Cardinals Stats</h2><span class="ct">B-Ref Database &middot; Updated Weekly</span></div>
+      <div class="stats-tabs" id="statsTabs">
+        <button class="stab active" data-pane="batting">Batting</button>
+        <button class="stab" data-pane="pitching">Pitching</button>
+        <button class="stab" data-pane="fielding">Fielding</button>
+        <button class="stab" data-pane="valueBatting">WAR &middot; Batting</button>
+        <button class="stab" data-pane="valuePitching">WAR &middot; Pitching</button>
+        <button class="stab" data-pane="appearances">Appearances</button>
+        <button class="stab" data-pane="fortyMan">40-Man Roster</button>
+        <button class="stab" data-pane="schedule">Schedule</button>
+      </div>
+      <div class="stats-scroll" id="statsBody">
+        <div class="loading">Loading stats from B-Ref database&hellip;</div>
+      </div>
+      <div class="stats-updated" id="statsUpdated">Click any column header to sort &uarr;&darr;</div>
+    </section>
+
     <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Around the League</h2><span class="ct">MLB Wire</span></div><div class="p-body scroll news" id="news"><div class="loading">Loading headlines&hellip;</div></div></section>
     <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>NL Central</h2><span class="ct">Standings</span></div><div class="p-body east" id="east"><div class="loading">Loading division&hellip;</div></div></section>
     <section class="panel col-12"><div class="p-head"><span class="bar"></span><h2>Locked On Cardinals &mdash; Latest Episodes</h2><span class="ct">Daily Pod</span></div><div class="p-body pod" id="pod"><div class="loading">Fetching episodes&hellip;</div></div></section>
   </div>
   <footer>
-    <div>Data: <span class="g">ESPN</span> (scores &middot; roster &middot; injuries &middot; news) &middot; <span class="g">iTunes / Locked On</span> (podcast). Keyless public feeds.</div>
-    <div>Auto-refresh every 5 min &middot; <span class="g">&#9888; Unofficial endpoints &mdash; may occasionally lag</span></div>
+    <div>Data: <span class="g">ESPN</span> (scores &middot; roster &middot; injuries &middot; news) &middot; <span class="g">Baseball Reference</span> (stats database) &middot; <span class="g">iTunes / Locked On</span> (podcast). Keyless public feeds.</div>
+    <div>Auto-refresh every 5 min &middot; Stats updated weekly via B-Ref export &middot; <span class="g">&#9888; Unofficial endpoints &mdash; may occasionally lag</span></div>
   </footer>
 </div>
 <button class="film-launch" id="filmOpen"><span class="ic">&#127902;</span> Film Room</button>
@@ -357,6 +398,102 @@ $("ref2Input").addEventListener("keydown",e=>{if(e.key==="Enter")ref2Jump($("ref
 function stamp(){$("updated").textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});}
 async function refreshAll(){await Promise.allSettled([loadSchedule(),loadRoster(),loadNews(),loadEast(),loadPodcast()]);stamp();}
 refreshAll();setInterval(refreshAll,300000);setInterval(tickCountdown,1000);
+
+// ===== Cardinals Stats Panel =====
+const STATS_JSON='https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json';
+
+const STATS_CFG={
+  batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
+  pitching:{sheet:'Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
+  fielding:{sheet:'Fielding',cols:['Player','Age','Pos','G','GS','Inn','PO','A','E','DP','Fld%','RF/9','RF/G'],sort:'G',dir:-1},
+  valueBatting:{sheet:'Value_Batting',cols:['Player','Age','Pos','G','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR'],sort:'WAR',dir:-1},
+  valuePitching:{sheet:'Value_Pitching',cols:['Player','Age','Pos','G','GS','IP','RA9','RA9opp','RA9role','PPFp','RA9avg','RAA','WAA','WAR'],sort:'WAR',dir:-1},
+  appearances:{sheet:'Appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
+  fortyMan:{sheet:'40Man',cols:['Name','Age','Pos','Ht','Wt','DoB','Birth','Exp','Salary'],sort:'Name',dir:1},
+  schedule:{sheet:'Schedule',cols:['Gm#','Date','Tm','Opp','R','RA','W-L','Win','Loss','Save','Time','D/N','Streak'],sort:'Gm#',dir:1}
+};
+
+let statsData=null,curPane='batting';
+const sortState={};
+
+function cleanName(s){
+  return String(s||'').replace(/\s*\(40-man\)\s*/gi,'').replace(/\*/g,'').replace(/\s*\(60-day IL\)/gi,' (IL)').trim();
+}
+function fmt(v){
+  if(v===null||v===undefined||v==='')return '—';
+  const s=String(v).trim();
+  return(s===''||s==='None'||s==='null')?'—':s;
+}
+
+function renderStats(pane){
+  if(!statsData)return;
+  const cfg=STATS_CFG[pane];
+  if(!cfg){$('statsBody').innerHTML='<div class="stats-err">Unknown table.</div>';return;}
+  const rows=(statsData[cfg.sheet]||[]).filter(r=>{
+    const n=r['Player']||r['Name']||'';
+    return n!=='Team Totals'&&n!=='';
+  });
+  if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data for this table. Run the export script and re-upload cardinals_stats.json.</div>';return;}
+
+  if(!sortState[pane])sortState[pane]={col:cfg.sort,dir:cfg.dir};
+  const {col:sc,dir:sd}=sortState[pane];
+
+  const avail=cfg.cols.filter(c=>rows[0].hasOwnProperty(c));
+  const sorted=[...rows].sort((a,b)=>{
+    const av=a[sc],bv=b[sc];
+    const an=parseFloat(av),bn=parseFloat(bv);
+    if(!isNaN(an)&&!isNaN(bn))return(an-bn)*sd;
+    return String(av||'').localeCompare(String(bv||''))*sd;
+  });
+
+  let h='<table class="stats-tbl"><thead><tr>';
+  avail.forEach(c=>{
+    const isSorted=c===sc;
+    const arrow=isSorted?(sd===-1?' ▼':' ▲'):'';
+    h+=`<th class="${isSorted?'sorted':''}" data-col="${c}">${c}<span class="sort-arrow">${arrow}</span></th>`;
+  });
+  h+='</tr></thead><tbody>';
+  sorted.forEach(row=>{
+    h+='<tr>';
+    avail.forEach((c,i)=>{
+      let v=fmt(row[c]);
+      if(i===0)v=cleanName(v);
+      h+=`<td>${v}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  $('statsBody').innerHTML=h;
+
+  $('statsBody').querySelectorAll('th[data-col]').forEach(th=>{
+    th.addEventListener('click',()=>{
+      const col=th.dataset.col;
+      if(sortState[pane]&&sortState[pane].col===col){sortState[pane].dir*=-1;}
+      else{sortState[pane]={col,dir:-1};}
+      renderStats(pane);
+    });
+  });
+}
+
+async function loadStats(){
+  try{
+    statsData=await getJSON(STATS_JSON);
+    renderStats(curPane);
+    $('statsUpdated').textContent='B-Ref database \u00B7 Click any column header to sort \u2191\u2193 \u00B7 Scroll right for more columns \u2192';
+  }catch(e){
+    $('statsBody').innerHTML='<div class="stats-err">Stats database not found. Run cardinals_export.py \u2192 upload cardinals_stats.json to the repo to populate this panel.</div>';
+  }
+}
+
+$('statsTabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.stab');if(!btn)return;
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  curPane=btn.dataset.pane;
+  if(statsData)renderStats(curPane);
+});
+
+loadStats();
 </script>
 
 <div style="margin:28px auto 0;max-width:1080px;padding:14px 16px 6px;border-top:1px solid #27313D;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8A94A3;text-align:center">© 2026 R. Grimes · All rights reserved</div>
