@@ -404,13 +404,13 @@ const STATS_JSON='https://raw.githubusercontent.com/rodmann4210-bot/cardinals_wa
 
 const STATS_CFG={
   batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
-  pitching:{sheet:'Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
-  fielding:{sheet:'Fielding',cols:['Player','Age','Pos','G','GS','Inn','PO','A','E','DP','Fld%','RF/9','RF/G'],sort:'G',dir:-1},
-  valueBatting:{sheet:'Value_Batting',cols:['Player','Age','Pos','G','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR'],sort:'WAR',dir:-1},
-  valuePitching:{sheet:'Value_Pitching',cols:['Player','Age','Pos','G','GS','IP','RA9','RA9opp','RA9role','PPFp','RA9avg','RAA','WAA','WAR'],sort:'WAR',dir:-1},
-  appearances:{sheet:'Appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
-  fortyMan:{sheet:'40Man',cols:['Name','Age','Pos','Ht','Wt','DoB','Birth','Exp','Salary'],sort:'Name',dir:1},
-  schedule:{sheet:'Schedule',cols:['Gm#','Date','Tm','Opp','R','RA','W-L','Win','Loss','Save','Time','D/N','Streak'],sort:'Gm#',dir:1}
+  pitching:{sheet:'Cardinals_Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
+  fielding:{sheet:'Cardinals_Fielding',cols:['Player','Pos','G','Inn','PO','A','E','DP','Fld%','RF/G'],sort:'G',dir:-1},
+  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir:-1},
+  valuePitching:{sheet:'value_pitching',cols:['Player','Age','IP','G','GS','RA9','RA9opp','PPFp','RA9avg','RAA','WAA','WAR','RAR'],sort:'WAR',dir:-1},
+  appearances:{sheet:'cardinals_appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
+  fortyMan:{sheet:'cardinals_40man',cols:['Name','Age','Pos','Ht','Wt','DoB','Birth','Exp','Salary'],sort:'Name',dir:1},
+  schedule:{sheet:'cardinals_schedule',cols:['Gm#','Date','Tm','Opp','R','RA','W-L','Win','Loss','Save','Time','D/N','Streak'],sort:'Gm#',dir:1}
 };
 
 let statsData=null,curPane='batting';
