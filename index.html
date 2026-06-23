@@ -431,7 +431,9 @@ function renderStats(pane){
   if(!cfg){$('statsBody').innerHTML='<div class="stats-err">Unknown table.</div>';return;}
   const rows=(statsData[cfg.sheet]||[]).filter(r=>{
     const n=r['Player']||r['Name']||'';
-    return n!=='Team Totals'&&n!=='';
+    // For schedule/non-player tables, don't filter by name
+    if(!n) return r['Gm#']!==undefined && r['Gm#']!=='';
+    return n!=='Team Totals';
   });
   if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data for this table. Run the export script and re-upload cardinals_stats.json.</div>';return;}
 
