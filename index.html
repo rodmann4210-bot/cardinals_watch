@@ -506,7 +506,7 @@ function buildStatsContext(data) {
   const batting = (data['Batting'] || []).filter(r => r.Player && r.Player !== 'Team Totals');
   if (batting.length) {
     sections.push('BATTING (2026 season):\n' +
-      batting.map(r => `${r.Player}: G=${r.G}, PA=${r.PA}, HR=${r.HR}, RBI=${r.RBI}, BA=${r.BA}, OBP=${r.OBP}, SLG=${r.SLG}, OPS=${r.OPS}, WAR=${r.WAR}`).join('\n')
+      batting.map(r => `${r.Player}: G=${r.G}, PA=${r.PA}, AB=${r.AB}, R=${r.R}, H=${r.H}, 2B=${r['2B']}, 3B=${r['3B']}, HR=${r.HR}, RBI=${r.RBI}, SB=${r.SB}, BB=${r.BB}, SO=${r.SO}, BA=${r.BA}, OBP=${r.OBP}, SLG=${r.SLG}, OPS=${r['OPS+']}, WAR=${r.WAR}`).join('\n')
     );
   }
 
