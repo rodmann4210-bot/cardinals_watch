@@ -550,17 +550,13 @@ async function runAIQuery(question) {
     const data = await getStatsForAI();
     const context = buildStatsContext(data);
 
-    const response = await fetch('https://api.anthropic.com/v1/messages', {
+    const response = await fetch('https://sports-ai-phi.vercel.app/api/ask', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-6',
-        max_tokens: 1000,
-        system: AI_SYSTEM,
-        messages: [{
-          role: 'user',
-          content: `Here is the current Cardinals stats database:\n\n${context}\n\nQuestion: ${question}`
-        }]
+        question,
+        context,
+        sport: 'St. Louis Cardinals 2026'
       })
     });
 
