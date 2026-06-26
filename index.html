@@ -1,38 +1,36 @@
 // Dynamic Team Router Configuration
-const APP_MODES = {
-  cardinals: {
-    sportPath: "baseball/mlb",
-    teamAbbr: "stl",
-    teamRegex: "cardinals|st. louis|st louis",
-    podcastId: "1371034395",
-    podcastName: "Locked On Cardinals",
-    divisionTeams: [{abbr:"stl",name:"Cardinals"},{abbr:"chc",name:"Cubs"},{abbr:"mil",name:"Brewers"},{abbr:"cin",name:"Reds"},{abbr:"pit",name:"Pirates"}],
-    statsJson: 'https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json',
-    showGb: true
-  },
-  city: {
-    sportPath: "soccer/usa.mls",
-    teamAbbr: "stl",
-    teamRegex: "city sc|st. louis city|stl city|soccer",
-    podcastId: "1614741364", // Standard St. Louis Soccer / CITY SC feed ID
+const APP_MODES = { 
+  cardinals: { 
+    sportPath: "baseball/mlb", 
+    teamAbbr: "stl", 
+    teamRegex: "cardinals|st. louis|st louis", 
+    podcastId: "1371034395", 
+    podcastName: "Locked On Cardinals", 
+    divisionTeams: [{abbr:"stl",name:"Cardinals"},{abbr:"chc",name:"Cubs"},{abbr:"mil",name:"Brewers"},{abbr:"cin",name:"Reds"},{abbr:"pit",name:"Pirates"}], 
+    statsJson: 'https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json', 
+    showGb: true 
+  }, 
+  city: { 
+    sportPath: "soccer/usa.mls", 
+    teamAbbr: "stl", 
+    teamRegex: "city sc|st. louis city|stl city|soccer", 
+    podcastId: "1614741364", 
     podcastName: "Flyover Footy", 
-    divisionTeams: [{abbr:"stl",name:"St. Louis CITY"},{abbr:"lafc",name:"LAFC"},{abbr:"lag",name:"LA Galaxy"},{abbr:"col",name:"Colorado"},{abbr:"sea",name:"Sounders"}],
-    statsJson: 'https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/city_stats.json',
-    showGb: false // Soccer tracks points, not Games Back (GB)
-  }
+    divisionTeams: [{abbr:"stl",name:"St. Louis CITY"},{abbr:"lafc",name:"LAFC"},{abbr:"lag",name:"LA Galaxy"},{abbr:"col",name:"Colorado"},{abbr:"sea",name:"Sounders"}], 
+    statsJson: 'https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/city_stats.json', 
+    showGb: false 
+  } 
 };
 
-// Set active application mode ('cardinals' or 'city')
 let currentMode = 'cardinals'; 
-const currentApp = APP_MODES[currentMode];
+const currentApp = APP_MODES[currentMode]; 
 
-// Map old explicit global handles cleanly to the dynamic router
-const SPORT_PATH = currentApp.sportPath;
-const SITE = `https://site.api.espn.com/apis/site/v2/sports/${SPORT_PATH}`;
-const TEAM = currentApp.teamAbbr;
-const TEAM_RE = currentApp.teamRegex;
-const DIVISION = currentApp.divisionTeams;
-const PODCAST_APPLE_ID = currentApp.podcastId;
-const POD_NAME = currentApp.podcastName;
-const STATS_JSON = currentApp.statsJson;
+const SPORT_PATH = currentApp.sportPath; 
+const SITE = `https://site.api.espn.com/apis/site/v2/sports/${SPORT_PATH}`; 
+const TEAM = currentApp.teamAbbr; 
+const TEAM_RE = currentApp.teamRegex; 
+const DIVISION = currentApp.divisionTeams; 
+const PODCAST_APPLE_ID = currentApp.podcastId; 
+const POD_NAME = currentApp.podcastName; 
+const STATS_JSON = currentApp.statsJson; 
 const SHOW_GB = currentApp.showGb;
