@@ -472,10 +472,13 @@ function renderStats(pane){
     avail.forEach((c,i)=>{
       let v=fmt(row[c]);
       if(i===0) v=cleanName(v);
-      // Schedule pane: link Date column to B-Ref game log
-      if(pane==='schedule' && c==='Date'){
-        const gameUrl=`https://www.baseball-reference.com/teams/STL/2026-schedule-scores.shtml`;
-        v=`<a href="${gameUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">${v}</a>`;
+      // Schedule pane: link Date to Google search for game preview
+      if(pane==='schedule' && c==='Date' && fmt(row['Opp'])!=='—'){
+        const opp=fmt(row['Opp']);
+        const dateVal=fmt(row['Date']);
+        const q=encodeURIComponent(`Cardinals vs ${opp} ${dateVal} 2026 preview`);
+        const searchUrl=`https://www.google.com/search?q=${q}`;
+        v=`<a href="${searchUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">${v}</a>`;
       }
       h+=`<td>${v}</td>`;
     });
