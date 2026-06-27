@@ -249,7 +249,7 @@
 
 <script>
 /* ============================================================
-   Stations load from stations.json (repo root). To add, reorder,
+   Stations load from cardinals_stats.json (repo root). To add, reorder,
    or remove an app, edit THAT file — you never touch this page.
    Each entry: { "name", "tag", "url", "accent", "icon" }
    icon = rocket | football | baseball | radar | ticket | fuel | grid
@@ -339,7 +339,7 @@ function tile(s,i){
     <div class="name">${s.name||'Untitled'}</div>
     <div class="tag">${s.tag||''}</div>
     <div class="open">
-      <span>${live?'Open station':'Add url in stations.json'}</span>
+      <span>${live?'Open station':'Add url in cardinals_stats.json'}</span>
       ${live?'<span class="arrow">▸</span>':'<span class="badge">pending</span>'}
     </div>`;
 
@@ -373,18 +373,18 @@ function showNotice(msg){
 
 (async function loadStations(){
   try{
-    const res = await fetch('stations.json', {cache:'no-store'});
+    const res = await fetch('cardinals_stats.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data = await res.json();
     const list = Array.isArray(data) ? data
                : (data && Array.isArray(data.stations) ? data.stations : null);
     if(!list || list.length===0){
-      showNotice('stations.json loaded but holds no stations. Add at least one entry under "stations" to populate the floor.');
+      showNotice('cardinals_stats.json loaded but holds no stations. Add at least one entry under "stations" to populate the floor.');
       return;
     }
     render(list);
   }catch(err){
-    showNotice('Couldn’t load stations.json. It must sit in the repo root beside index.html and be valid JSON. ('+err.message+')');
+    showNotice('Couldn’t load cardinals_stats.json. It must sit in the repo root beside index.html and be valid JSON. ('+err.message+')');
   }
 })();
 
