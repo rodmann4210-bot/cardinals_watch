@@ -1,28 +1,21 @@
 {
-  "stations": [
-    {
-      "name": "St. Louis Cardinals Watch",
-      "icon": "baseball",
-      "tag": "Track upcoming schedules, team news, and ticket promotions.",
-      "url": "https://www.mlb.com/cardinals"
-    },
-    {
-      "name": "Mizzou Broadcast Radio",
-      "icon": "radar",
-      "tag": "Monitor local radio frequencies and live sports coverage.",
-      "url": ""
-    },
-    {
-      "name": "Station 03",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    },
-    {
-      "name": "Station 04",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    }
+  "Batting": [
+    { "Player": "Alec Burleson", "Age": "27", "Pos": "DH", "G": "75", "PA": "310", "AB": "285", "R": "42", "H": "80", "2B": "15", "3B": "0", "HR": "14", "RBI": "45", "SB": "2", "CS": "1", "BB": "20", "SO": "40", "BA": ".281", "OBP": ".330", "SLG": ".481", "OPS": ".811", "OPS+": "122", "WAR": "1.8" },
+    { "Player": "Brendan Donovan", "Age": "29", "Pos": "LF", "G": "78", "PA": "330", "AB": "295", "R": "48", "H": "79", "2B": "18", "3B": "1", "HR": "8", "RBI": "38", "SB": "4", "CS": "2", "BB": "31", "SO": "45", "BA": ".268", "OBP": ".345", "SLG": ".417", "OPS": ".762", "OPS+": "110", "WAR": "2.1" },
+    { "Player": "Nolan Gorman", "Age": "26", "Pos": "2B", "G": "68", "PA": "260", "AB": "230", "R": "30", "H": "51", "2B": "10", "3B": "0", "HR": "16", "RBI": "41", "SB": "1", "CS": "0", "BB": "25", "SO": "88", "BA": ".222", "OBP": ".301", "SLG": ".474", "OPS": ".775", "OPS+": "112", "WAR": "1.1" },
+    { "Player": "Jordan Walker", "Age": "24", "Pos": "RF", "G": "45", "PA": "180", "AB": "162", "R": "22", "H": "43", "2B": "8", "3B": "1", "HR": "7", "RBI": "24", "SB": "3", "CS": "1", "BB": "15", "SO": "38", "BA": ".265", "OBP": ".331", "SLG": ".457", "OPS": ".788", "OPS+": "115", "WAR": "0.8" },
+    { "Player": "Masyn Winn", "Age": "24", "Pos": "SS", "G": "79", "PA": "325", "AB": "298", "R": "45", "H": "84", "2B": "16", "3B": "3", "HR": "5", "RBI": "32", "SB": "11", "CS": "3", "BB": "22", "SO": "52", "BA": ".282", "OBP": ".334", "SLG": ".406", "OPS": ".740", "OPS+": "105", "WAR": "2.8" }
+  ],
+  "Cardinals_Pitching": [
+    { "Player": "Sonny Gray", "Age": "36", "Pos": "SP", "W": "8", "L": "5", "ERA": "3.62", "G": "16", "GS": "16", "IP": "97.0", "H": "82", "BB": "24", "SO": "108", "HR": "10", "WHIP": "1.09", "SO9": "10.0", "BB9": "2.2", "WAR": "2.3" },
+    { "Player": "Ryan Helsley", "Age": "31", "Pos": "RP", "W": "3", "L": "1", "ERA": "2.10", "G": "34", "GS": "0", "IP": "34.1", "H": "22", "BB": "10", "SO": "45", "HR": "2", "WHIP": "0.93", "SO9": "11.8", "BB9": "2.6", "WAR": "1.5" }
+  ],
+  "Cardinals_Fielding": [],
+  "value_batting": [],
+  "value_pitching": [],
+  "Appearances": [],
+  "40Man": [],
+  "Schedule": [
+    { "Gm#": "81", "Date": "Jun 28", "Tm": "STL", "Opp": "CHC", "W/L": "", "R": "", "RA": "", "Inn": "", "W-L": "44-36", "Rank": "3", "GB": "5.5", "Win": "", "Loss": "", "Save": "", "Time": "1:15", "D/N": "D", "Streak": "" }
   ]
 }
