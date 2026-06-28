@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Grimes Watch Floor</title>
+<title>Cardinals Watch</title>
 
 <link rel="icon" href="/cardinals_watch/icon.png" type="image/png">
 <link rel="apple-touch-icon" href="/cardinals_watch/icon-180.png">
 <link rel="manifest" href="/cardinals_watch/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Watch Floor">
+<meta name="apple-mobile-web-app-title" content="Cardinals Watch">
 <meta name="theme-color" content="#0E1116">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,7 +22,7 @@
     --panel:#151B23;
     --panel-hi:#1C242E;
     --line:#27313D;
-    --phosphor:#E8B04B;      /* console chrome */
+    --phosphor:#C41E3A;      /* Cardinals Red chrome */
     --text:#E6EDF3;
     --dim:#8A94A3;
     --mono:'IBM Plex Mono',ui-monospace,monospace;
@@ -39,11 +39,10 @@
     font-family:var(--display);
     min-height:100dvh;
     padding:clamp(18px,4vw,40px);
-    /* faint phosphor grid + vignette */
     background-image:
-      linear-gradient(rgba(232,176,75,.025) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(232,176,75,.025) 1px,transparent 1px),
-      radial-gradient(120% 80% at 50% -10%,rgba(232,176,75,.05),transparent 60%);
+      linear-gradient(rgba(196,30,58,.025) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(196,30,58,.025) 1px,transparent 1px),
+      radial-gradient(120% 80% at 50% -10%,rgba(196,30,58,.05),transparent 60%);
     background-size:46px 46px,46px 46px,100% 100%;
   }
 
@@ -60,13 +59,13 @@
   .beacon{
     width:11px;height:11px;border-radius:50%;
     background:var(--phosphor);
-    box-shadow:0 0 0 0 rgba(232,176,75,.6);
+    box-shadow:0 0 0 0 rgba(196,30,58,.6);
     animation:beacon 2.4s ease-out infinite;
   }
   @keyframes beacon{
-    0%{box-shadow:0 0 0 0 rgba(232,176,75,.55)}
-    70%{box-shadow:0 0 0 9px rgba(232,176,75,0)}
-    100%{box-shadow:0 0 0 0 rgba(232,176,75,0)}
+    0%{box-shadow:0 0 0 0 rgba(196,30,58,.55)}
+    70%{box-shadow:0 0 0 9px rgba(196,30,58,0)}
+    100%{box-shadow:0 0 0 0 rgba(196,30,58,0)}
   }
   .title{
     font-weight:700;letter-spacing:.04em;line-height:1;
@@ -103,7 +102,6 @@
     overflow:hidden;
     transition:transform .18s ease,border-color .18s ease,background .18s ease;
   }
-  /* accent rail */
   .station::before{
     content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
     background:var(--accent);
@@ -155,7 +153,6 @@
   .open .arrow{transition:transform .18s ease}
   .station:hover .open .arrow{transform:translateX(4px)}
 
-  /* pending (no URL yet) state */
   .station.pending{cursor:default}
   .station.pending::before{opacity:.45}
   .station.pending:hover{transform:none;background:var(--panel);border-color:var(--line)}
@@ -186,7 +183,6 @@
     padding:26px;text-align:center;
   }
 
-  /* tiles suppress the native long-press callout so the share menu takes over */
   .station{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none}
 
   .menu{
@@ -226,7 +222,7 @@
     <div class="brand">
       <span class="beacon" aria-hidden="true"></span>
       <div>
-        <div class="title">GRIMES WATCH FLOOR</div>
+        <div class="title">CARDINALS WATCH</div>
         <div class="subtitle">Personal Ops Console</div>
       </div>
     </div>
@@ -247,14 +243,6 @@
 </div>
 
 <script>
-/* ============================================================
-   Stations load from cardinals_stats.json (repo root). To add, reorder,
-   or remove an app, edit THAT file — you never touch this page.
-   Each entry: { "name", "tag", "url", "accent", "icon" }
-   icon = rocket | football | baseball | radar | ticket | fuel | grid
-   (any unknown icon falls back to the grid glyph)
-   ============================================================ */
-
 const ICONS = {
   rocket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c-1.5 1.2-2 4.5-2 6 1.5 0 4.8-.5 6-2"/><path d="M12 2c3.5 1.8 6 5.6 6 10l-3.5 3.5L9 16.5 5.5 13C5.5 8.6 8 4.8 12 2z"/><circle cx="12" cy="9" r="1.6"/><path d="M9 16.5 7 21M15 16.5 17 21"/></svg>',
   football:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 1 13-4 14-14C11 4 6 9 5 19z"/><path d="M9 15l6-6M10.5 11.5l2 2M13 9l2 2"/></svg>',
@@ -273,7 +261,6 @@ const ICONS = {
 const grid = document.getElementById('grid');
 const countEl = document.getElementById('count');
 
-/* ---- per-tile share menu: right-click (desktop) / long-press (touch) ---- */
 const menu = document.createElement('div');
 menu.className = 'menu'; menu.setAttribute('role','menu');
 document.body.appendChild(menu);
@@ -289,7 +276,7 @@ function openMenu(x,y,s){
   if(!s.url) return;
   const hasShare = !!navigator.share;
   menu.innerHTML =
-    `<div class="mhead" style="color:${s.accent||'#E8B04B'}">${s.name||'Station'}</div>`+
+    `<div class="mhead" style="color:${s.accent||'#C41E3A'}">${s.name||'Station'}</div>`+
     (hasShare?`<button data-act="share">${MI.share}<span>Share…</span></button>`:'')+
     `<button data-act="copy">${MI.copy}<span>Copy link</span></button>`+
     `<button data-act="open">${MI.open}<span>Open in new tab</span></button>`;
@@ -324,7 +311,7 @@ function tile(s,i){
   const live = !!s.url;
   const el = document.createElement(live ? 'a' : 'div');
   el.className = 'station' + (live ? '' : ' pending');
-  el.style.setProperty('--accent', s.accent || '#E8B04B');
+  el.style.setProperty('--accent', s.accent || '#C41E3A');
   if(live) el.href = s.url;
   const num = String(i+1).padStart(2,'0');
   el.innerHTML = `
@@ -342,7 +329,6 @@ function tile(s,i){
       ${live?'<span class="arrow">▸</span>':'<span class="badge">pending</span>'}
     </div>`;
 
-  // share triggers
   el.addEventListener('contextmenu', e=>{ if(!s.url) return; e.preventDefault(); openMenu(e.clientX,e.clientY,s); });
   let lpTimer=null, suppressClick=false;
   el.addEventListener('touchstart', e=>{
@@ -372,11 +358,14 @@ function showNotice(msg){
 
 (async function loadStations(){
   try{
-    const res = await fetch('cardinals_stats.json', {cache:'no-store'});
+    const res = await fetch('/cardinals_watch/cardinals_stats.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data = await res.json();
-    const list = Array.isArray(data) ? data
+    
+    // Fallback parsing logic to protect against variant JSON formats
+    const list = Array.isArray(data) ? data 
                : (data && Array.isArray(data.stations) ? data.stations : null);
+               
     if(!list || list.length===0){
       showNotice('cardinals_stats.json loaded but holds no stations. Add at least one entry under "stations" to populate the floor.');
       return;
@@ -387,7 +376,6 @@ function showNotice(msg){
   }
 })();
 
-/* Central-time console clock (correct regardless of device tz) */
 function tick(){
   const now = new Date();
   const t = new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour12:false,
