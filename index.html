@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cardinals Watch</title>
 
+<!-- ===== Home-screen icon hooks ===== -->
 <link rel="icon" href="/cardinals_watch/icon.png" type="image/png">
 <link rel="apple-touch-icon" href="/cardinals_watch/icon-180.png">
 <link rel="manifest" href="/cardinals_watch/manifest.json">
@@ -357,12 +358,12 @@ function showNotice(msg){
 }
 
 (async function loadStations(){
-  try{
-    const res = await fetch('/cardinals_watch/cardinals_stats.json', {cache:'no-store'});
+  try {
+    // Reverted back to a relative project fetch link to restore connectivity
+    const res = await fetch('cardinals_stats.json', {cache:'no-store'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const data = await res.json();
     
-    // Fallback parsing logic to protect against variant JSON formats
     const list = Array.isArray(data) ? data 
                : (data && Array.isArray(data.stations) ? data.stations : null);
                
