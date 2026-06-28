@@ -25,58 +25,63 @@
       "url": ""
     },
     {
-      "name": "NASCAR / Ty Gibbs Tracker",
+      "name": "Station 05",
+      "icon": "grid",
+      "tag": "Standby for ops mapping.",
+      "url": ""
+    },
+    {
+      "name": "Station 06",
+      "icon": "grid",
+      "tag": "Standby for ops mapping.",
+      "url": ""
+    },
+    {
+      "name": "Station 07",
+      "icon": "grid",
+      "tag": "Standby for ops mapping.",
+      "url": ""
+    },
+    {
+      "name": "Station 08",
+      "icon": "grid",
+      "tag": "Standby for ops mapping.",
+      "url": ""
+    },
+    {
+      "name": "St. Louis City Watch",
+      "icon": "soccerball",
+      "tag": "St. Louis City SC — MLS fixtures, Western Conference table, squad and form.",
+      "url": "https://www.stlcitysc.com/",
+      "accent": "#EF3A5E"
+    },
+    {
+      "name": "Gibbs Watch",
       "icon": "checkered",
-      "tag": "Follow driver history, racing series rules, and live timing.",
-      "url": ""
+      "tag": "Joe Gibbs Racing — NASCAR Cup lineup, points and the 2026 schedule with live race countdown.",
+      "url": "https://www.joegibbsracing.com/",
+      "accent": "#F2A900"
     },
     {
-      "name": "Martinsville Speedway",
+      "name": "Road Watch",
+      "icon": "compass",
+      "tag": "Trip planner — type start + destination for route, drive time, and a hotels/food/entertainment/sports guide.",
+      "url": "https://www.google.com/maps",
+      "accent": "#00A86B"
+    },
+    {
+      "name": "NASCAR Watch",
       "icon": "checkered",
-      "tag": "Track dimensions, race schedules, and event updates.",
-      "url": ""
+      "tag": "JGR Cup Series dashboard — #11 #19 #20 #54 spotlight, standings, race results and full 2026 schedule.",
+      "url": "https://www.nascar.com/results",
+      "accent": "#E10600"
     },
     {
-      "name": "WWT Raceway",
-      "icon": "checkered",
-      "tag": "Local race schedule, gateway track metrics, and timing.",
-      "url": ""
-    },
-    {
-      "name": "Washington Commanders",
-      "icon": "football",
-      "tag": "Monitor game schedules, roster updates, and team news.",
-      "url": ""
-    },
-    {
-      "name": "Station 09",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    },
-    {
-      "name": "Station 10",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    },
-    {
-      "name": "Station 11",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    },
-    {
-      "name": "Station 12",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
-    },
-    {
-      "name": "Station 13",
-      "icon": "grid",
-      "tag": "Standby for ops mapping.",
-      "url": ""
+      "name": "Sports AI Hub",
+      "icon": "brain",
+      "tag": "Ask the stats — MLB standings, leaders, scores and AI answers across all your teams.",
+      "url": "https://gemini.google.com",
+      "accent": "#0080FF"
     }
   ]
 }
