@@ -13,25 +13,13 @@
       "url": ""
     },
     {
-      "name": "SpaceX Starship Launch",
-      "icon": "rocket",
-      "tag": "Track upcoming orbital flight schedules and launch windows.",
+      "name": "Station 03",
+      "icon": "grid",
+      "tag": "Standby for ops mapping.",
       "url": ""
     },
     {
-      "name": "Silverado Fuel Logistics",
-      "icon": "fuel",
-      "tag": "Verify E65 fuel compatibility and performance statistics.",
-      "url": ""
-    },
-    {
-      "name": "Washington Commanders",
-      "icon": "football",
-      "tag": "Monitor game schedules, roster updates, and team news.",
-      "url": ""
-    },
-    {
-      "name": "Station 06",
+      "name": "Station 04",
       "icon": "grid",
       "tag": "Standby for ops mapping.",
       "url": ""
