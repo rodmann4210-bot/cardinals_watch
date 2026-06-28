@@ -1,3 +1,4 @@
+<!-- © 2026 Roderick Grimes. All rights reserved. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,8 +134,8 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== FIX: STRICT HEIGHT FORCE OVERFLOW VIEW ===== */
-  .stats-scroll { height: 380px !important; max-height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; }
+  /* ===== UPGRADED SCROLL CONFIGURATION ===== */
+  .stats-scroll { height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
   .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
@@ -198,6 +199,7 @@
     <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Roster</h2><span class="ct" id="rosterCt"></span></div><div class="p-body scroll" id="roster"><div class="loading">Pulling roster…</div></div></section>
     <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>Injured List</h2><span class="ct" id="injCt"></span></div><div class="p-body scroll" id="injuries"><div class="loading">Checking the report…</div></div></section>
 
+    <!-- ===== AI STATS QUERY ===== -->
     <section class="panel col-12">
       <div class="p-head"><span class="bar"></span><h2>Ask the Stats</h2><span class="ct">AI · B-Ref Database</span></div>
       <div class="ai-body">
@@ -219,6 +221,7 @@
       </div>
     </section>
 
+    <!-- ===== CARDINALS STATS PANEL ===== -->
     <section class="panel col-12" id="statsPanel">
       <div class="p-head">
         <span class="bar"></span>
