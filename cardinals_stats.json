@@ -5,40 +5,62 @@
     { "Player": "JJ Wetherholt", "Age": "23", "Pos": "2B", "G": "70", "PA": "318", "AB": "271", "R": "46", "H": "71", "2B": "8", "3B": "0", "HR": "12", "RBI": "31", "SB": "8", "CS": "0", "BB": "35", "SO": "50", "BA": ".262", "OBP": ".365", "SLG": ".402", "OPS": ".767", "OPS+": "119", "WAR": "3.7" },
     { "Player": "Ivan Herrera", "Age": "26", "Pos": "DH", "G": "74", "PA": "337", "AB": "270", "R": "50", "H": "70", "2B": "13", "3B": "1", "HR": "9", "RBI": "32", "SB": "5", "CS": "0", "BB": "45", "SO": "52", "BA": ".259", "OBP": ".401", "SLG": ".415", "OPS": ".816", "OPS+": "135", "WAR": "1.8" },
     { "Player": "Nathan Church", "Age": "25", "Pos": "LF", "G": "56", "PA": "189", "AB": "175", "R": "22", "H": "46", "2B": "8", "3B": "1", "HR": "5", "RBI": "19", "SB": "4", "CS": "2", "BB": "10", "SO": "42", "BA": ".263", "OBP": ".307", "SLG": ".406", "OPS": ".713", "OPS+": "98", "WAR": "0.6" },
-    { "Player": "Pedro Pagés", "Age": "27", "Pos": "C", "G": "42", "PA": "140", "AB": "127", "R": "12", "H": "28", "2B": "6", "3B": "0", "HR": "4", "RBI": "11", "SB": "2", "CS": "0", "BB": "5", "SO": "33", "BA": ".220", "OBP": ".257", "SLG": ".362", "OPS": ".619", "OPS+": "74", "WAR": "-0.2" },
     { "Player": "Lars Nootbaar", "Age": "28", "Pos": "LF", "G": "13", "PA": "53", "AB": "45", "R": "8", "H": "12", "2B": "2", "3B": "0", "HR": "2", "RBI": "6", "SB": "0", "CS": "1", "BB": "7", "SO": "13", "BA": ".267", "OBP": ".358", "SLG": ".444", "OPS": ".802", "OPS+": "121", "WAR": "0.3" },
-    { "Player": "Victor Scott II", "Age": "25", "Pos": "CF", "G": "61", "PA": "184", "AB": "155", "R": "19", "H": "30", "2B": "4", "3B": "0", "HR": "2", "RBI": "9", "SB": "9", "CS": "4", "BB": "16", "SO": "44", "BA": ".194", "OBP": ".276", "SLG": ".258", "OPS": ".534", "OPS+": "51", "WAR": "0.2" },
     { "Player": "Masyn Winn", "Age": "24", "Pos": "SS", "G": "67", "PA": "284", "AB": "248", "R": "30", "H": "60", "2B": "11", "3B": "2", "HR": "2", "RBI": "27", "SB": "6", "CS": "2", "BB": "25", "SO": "57", "BA": ".242", "OBP": ".320", "SLG": ".327", "OPS": ".647", "OPS+": "85", "WAR": "1.2" },
+    { "Player": "Pedro Pagés", "Age": "27", "Pos": "C", "G": "42", "PA": "140", "AB": "127", "R": "12", "H": "28", "2B": "6", "3B": "0", "HR": "4", "RBI": "11", "SB": "2", "CS": "0", "BB": "5", "SO": "33", "BA": ".220", "OBP": ".257", "SLG": ".362", "OPS": ".619", "OPS+": "74", "WAR": "-0.2" },
+    { "Player": "Nelson Velázquez", "Age": "27", "Pos": "LF", "G": "24", "PA": "72", "AB": "64", "R": "12", "H": "15", "2B": "3", "3B": "0", "HR": "3", "RBI": "9", "SB": "1", "CS": "0", "BB": "6", "SO": "18", "BA": ".234", "OBP": ".300", "SLG": ".422", "OPS": ".722", "OPS+": "99", "WAR": "0.1" },
+    { "Player": "Blaze Jordan", "Age": "23", "Pos": "3B", "G": "32", "PA": "98", "AB": "90", "R": "8", "H": "20", "2B": "4", "3B": "0", "HR": "2", "RBI": "12", "SB": "0", "CS": "0", "BB": "5", "SO": "22", "BA": ".222", "OBP": ".265", "SLG": ".333", "OPS": ".598", "OPS+": "68", "WAR": "0.0" },
+    { "Player": "José Fermín", "Age": "27", "Pos": "LF", "G": "38", "PA": "112", "AB": "98", "R": "14", "H": "23", "2B": "5", "3B": "1", "HR": "1", "RBI": "8", "SB": "3", "CS": "1", "BB": "11", "SO": "15", "BA": ".235", "OBP": ".313", "SLG": ".337", "OPS": ".650", "OPS+": "83", "WAR": "0.2" },
+    { "Player": "Bryan Torres", "Age": "28", "Pos": "LF", "G": "15", "PA": "35", "AB": "31", "R": "4", "H": "7", "2B": "1", "3B": "0", "HR": "0", "RBI": "2", "SB": "2", "CS": "0", "BB": "3", "SO": "6", "BA": ".226", "OBP": ".294", "SLG": ".258", "OPS": ".552", "OPS+": "58", "WAR": "-0.1" },
+    { "Player": "Jimmy Crooks", "Age": "24", "Pos": "C", "G": "11", "PA": "28", "AB": "25", "R": "2", "H": "5", "2B": "1", "3B": "0", "HR": "0", "RBI": "1", "SB": "0", "CS": "0", "BB": "2", "SO": "8", "BA": ".200", "OBP": ".259", "SLG": ".240", "OPS": ".499", "OPS+": "44", "WAR": "-0.1" },
     { "Player": "Nolan Gorman", "Age": "26", "Pos": "3B", "G": "62", "PA": "229", "AB": "201", "R": "19", "H": "39", "2B": "4", "3B": "0", "HR": "7", "RBI": "26", "SB": "0", "CS": "1", "BB": "25", "SO": "74", "BA": ".194", "OBP": ".279", "SLG": ".318", "OPS": ".597", "OPS+": "72", "WAR": "0.1" }
   ],
   "Cardinals_Pitching": [
-    { "Player": "Michael McGreevy", "Age": "25", "Pos": "SP", "W": "3", "L": "2", "ERA": "3.48", "G": "9", "GS": "9", "IP": "51.2", "H": "46", "BB": "14", "SO": "57", "HR": "5", "WHIP": "1.16", "SO9": "9.9", "BB9": "2.4", "WAR": "1.2" },
     { "Player": "Dustin May", "Age": "28", "Pos": "SP", "W": "6", "L": "4", "ERA": "3.80", "G": "16", "GS": "16", "IP": "92.1", "H": "81", "BB": "29", "SO": "77", "HR": "8", "WHIP": "1.19", "SO9": "7.5", "BB9": "2.8", "WAR": "1.8" },
-    { "Player": "Kyle Leahy", "Age": "29", "Pos": "RP", "W": "4", "L": "3", "ERA": "3.95", "G": "28", "GS": "2", "IP": "41.0", "H": "38", "BB": "12", "SO": "62", "HR": "4", "WHIP": "1.22", "SO9": "13.6", "BB9": "2.6", "WAR": "0.6" },
+    { "Player": "Michael McGreevy", "Age": "25", "Pos": "SP", "W": "3", "L": "2", "ERA": "3.48", "G": "9", "GS": "9", "IP": "51.2", "H": "46", "BB": "14", "SO": "57", "HR": "5", "WHIP": "1.16", "SO9": "9.9", "BB9": "2.4", "WAR": "1.2" },
     { "Player": "Matthew Liberatore", "Age": "26", "Pos": "RP", "W": "5", "L": "4", "ERA": "4.15", "G": "18", "GS": "12", "IP": "78.0", "H": "75", "BB": "31", "SO": "70", "HR": "9", "WHIP": "1.36", "SO9": "8.1", "BB9": "3.6", "WAR": "1.1" },
-    { "Player": "Andre Pallante", "Age": "27", "Pos": "SP", "W": "4", "L": "6", "ERA": "4.32", "G": "15", "GS": "15", "IP": "85.1", "H": "89", "BB": "22", "SO": "68", "HR": "11", "WHIP": "1.30", "SO9": "7.2", "BB9": "2.3", "WAR": "0.9" }
+    { "Player": "Andre Pallante", "Age": "27", "Pos": "SP", "W": "4", "L": "6", "ERA": "4.32", "G": "15", "GS": "15", "IP": "85.1", "H": "89", "BB": "22", "SO": "68", "HR": "11", "WHIP": "1.30", "SO9": "7.2", "BB9": "2.3", "WAR": "0.9" },
+    { "Player": "Kyle Leahy", "Age": "29", "Pos": "RP", "W": "4", "L": "3", "ERA": "3.95", "G": "28", "GS": "2", "IP": "41.0", "H": "38", "BB": "12", "SO": "62", "HR": "4", "WHIP": "1.22", "SO9": "13.6", "BB9": "2.6", "WAR": "0.6" },
+    { "Player": "JoJo Romero", "Age": "29", "Pos": "RP", "W": "2", "L": "2", "ERA": "2.84", "G": "31", "GS": "0", "IP": "31.2", "H": "25", "BB": "11", "SO": "34", "HR": "3", "WHIP": "1.14", "SO9": "9.7", "BB9": "3.1", "WAR": "0.8" },
+    { "Player": "Ryne Stanek", "Age": "34", "Pos": "RP", "W": "3", "L": "1", "ERA": "3.12", "G": "29", "GS": "0", "IP": "26.0", "H": "20", "BB": "14", "SO": "28", "HR": "2", "WHIP": "1.31", "SO9": "9.7", "BB9": "4.8", "WAR": "0.4" },
+    { "Player": "George Soriano", "Age": "27", "Pos": "RP", "W": "1", "L": "3", "ERA": "4.50", "G": "24", "GS": "0", "IP": "28.0", "H": "29", "BB": "12", "SO": "25", "HR": "4", "WHIP": "1.46", "SO9": "8.0", "BB9": "3.9", "WAR": "0.0" },
+    { "Player": "Matt Svanson", "Age": "27", "Pos": "RP", "W": "2", "L": "0", "ERA": "3.68", "G": "20", "GS": "0", "IP": "22.0", "H": "19", "BB": "9", "SO": "18", "HR": "1", "WHIP": "1.27", "SO9": "7.4", "BB9": "3.7", "WAR": "0.3" },
+    { "Player": "Gordon Graceffo", "Age": "26", "Pos": "RP", "W": "0", "L": "1", "ERA": "5.14", "G": "12", "GS": "0", "IP": "14.0", "H": "16", "BB": "6", "SO": "11", "HR": "2", "WHIP": "1.57", "SO9": "7.1", "BB9": "3.9", "WAR": "-0.2" },
+    { "Player": "Riley O'Brien", "Age": "31", "Pos": "RP", "W": "1", "L": "1", "ERA": "3.86", "G": "15", "GS": "0", "IP": "14.0", "H": "13", "BB": "7", "SO": "15", "HR": "1", "WHIP": "1.43", "SO9": "9.6", "BB9": "4.5", "WAR": "0.1" },
+    { "Player": "Justin Bruihl", "Age": "29", "Pos": "RP", "W": "0", "L": "0", "ERA": "4.15", "G": "11", "GS": "0", "IP": "8.2", "H": "9", "BB": "4", "SO": "7", "HR": "1", "WHIP": "1.50", "SO9": "7.3", "BB9": "4.2", "WAR": "0.0" },
+    { "Player": "Maxwel Rajcic", "Age": "24", "Pos": "RP", "W": "0", "L": "0", "ERA": "6.75", "G": "4", "GS": "0", "IP": "6.2", "H": "9", "BB": "3", "SO": "5", "HR": "2", "WHIP": "1.80", "SO9": "6.8", "BB9": "4.1", "WAR": "-0.1" }
   ],
   "Cardinals_Fielding": [
     { "Player": "Masyn Winn", "Pos": "SS", "G": "67", "Inn": "592.1", "PO": "92", "A": "184", "E": "6", "DP": "38", "Fld%": ".979", "RF/G": "4.12" },
     { "Player": "Alec Burleson", "Pos": "1B", "G": "65", "Inn": "540.0", "PO": "480", "A": "32", "E": "2", "DP": "45", "Fld%": ".996", "RF/G": "7.88" },
     { "Player": "JJ Wetherholt", "Pos": "2B", "G": "68", "Inn": "571.0", "PO": "110", "A": "165", "E": "4", "DP": "40", "Fld%": ".986", "RF/G": "4.04" },
-    { "Player": "Victor Scott II", "Pos": "CF", "G": "61", "Inn": "520.0", "PO": "142", "A": "4", "E": "1", "DP": "1", "Fld%": ".993", "RF/G": "2.39" }
+    { "Player": "Jordan Walker", "Pos": "RF", "G": "73", "Inn": "640.0", "PO": "135", "A": "5", "E": "3", "DP": "1", "Fld%": ".979", "RF/G": "1.92" },
+    { "Player": "Nathan Church", "Pos": "LF", "G": "52", "Inn": "445.0", "PO": "98", "A": "3", "E": "1", "DP": "0", "Fld%": ".990", "RF/G": "1.94" },
+    { "Player": "Pedro Pagés", "Pos": "C", "G": "42", "Inn": "362.0", "PO": "340", "A": "22", "E": "2", "DP": "2", "Fld%": ".995", "RF/G": "8.62" },
+    { "Player": "Blaze Jordan", "Pos": "3B", "G": "30", "Inn": "245.0", "PO": "18", "A": "48", "E": "4", "DP": "3", "Fld%": ".943", "RF/G": "2.20" }
   ],
   "value_batting": [
     { "Player": "JJ Wetherholt", "Age": "23", "PA": "318", "Rbat": "16.2", "Rbaser": "1.4", "Rdp": "0.4", "Rfield": "4.2", "Rpos": "2.1", "RAA": "24.3", "WAA": "2.4", "Rrep": "8.5", "RAR": "32.8", "WAR": "3.7", "oWAR": "3.1", "dWAR": "0.6", "Pos": "2B" },
     { "Player": "Jordan Walker", "Age": "24", "PA": "314", "Rbat": "18.4", "Rbaser": "0.8", "Rdp": "-0.2", "Rfield": "-2.1", "Rpos": "-1.5", "RAA": "15.4", "WAA": "1.5", "Rrep": "8.3", "RAR": "23.7", "WAR": "2.1", "oWAR": "2.5", "dWAR": "-0.4", "Pos": "RF" },
+    { "Player": "Ivan Herrera", "Age": "26", "PA": "337", "Rbat": "14.0", "Rbaser": "0.2", "Rdp": "-0.1", "Rfield": "0.5", "Rpos": "-1.0", "RAA": "13.6", "WAA": "1.3", "Rrep": "8.8", "RAR": "22.4", "WAR": "1.8", "oWAR": "1.9", "dWAR": "-0.1", "Pos": "DH" },
     { "Player": "Alec Burleson", "Age": "27", "PA": "320", "Rbat": "12.1", "Rbaser": "-0.2", "Rdp": "0.8", "Rfield": "1.2", "Rpos": "-2.5", "RAA": "11.4", "WAA": "1.1", "Rrep": "8.1", "RAR": "19.5", "WAR": "1.7", "oWAR": "1.9", "dWAR": "-0.2", "Pos": "1B" },
-    { "Player": "Ivan Herrera", "Age": "26", "PA": "337", "Rbat": "14.0", "Rbaser": "0.2", "Rdp": "-0.1", "Rfield": "0.5", "Rpos": "-1.0", "RAA": "13.6", "WAA": "1.3", "Rrep": "8.8", "RAR": "22.4", "WAR": "1.8", "oWAR": "1.9", "dWAR": "-0.1", "Pos": "DH" }
+    { "Player": "Masyn Winn", "Age": "24", "PA": "284", "Rbat": "-4.2", "Rbaser": "2.1", "Rdp": "0.2", "Rfield": "5.6", "Rpos": "2.8", "RAA": "6.5", "WAA": "0.6", "Rrep": "7.2", "RAR": "13.7", "WAR": "1.2", "oWAR": "0.5", "dWAR": "0.7", "Pos": "SS" },
+    { "Player": "Nathan Church", "Age": "25", "PA": "189", "Rbat": "-1.5", "Rbaser": "0.5", "Rdp": "-0.1", "Rfield": "2.2", "Rpos": "-0.8", "RAA": "0.3", "WAA": "0.0", "Rrep": "5.1", "RAR": "5.4", "WAR": "0.6", "oWAR": "0.3", "dWAR": "0.3", "Pos": "LF" }
   ],
   "value_pitching": [
     { "Player": "Dustin May", "Age": "28", "IP": "92.1", "G": "16", "GS": "16", "RA9": "3.92", "RA9opp": "4.35", "PPFp": "98.2", "RA9avg": "4.28", "RAA": "8.4", "WAA": "0.9", "WAR": "1.8", "RAR": "16.2" },
     { "Player": "Michael McGreevy", "Age": "25", "IP": "51.2", "G": "9", "GS": "9", "RA9": "3.66", "RA9opp": "4.30", "PPFp": "98.0", "RA9avg": "4.22", "RAA": "5.2", "WAA": "0.5", "WAR": "1.2", "RAR": "10.4" },
-    { "Player": "Matthew Liberatore", "Age": "26", "IP": "78.0", "G": "18", "GS": "12", "RA9": "4.25", "RA9opp": "4.33", "PPFp": "98.4", "RA9avg": "4.26", "RAA": "2.1", "WAA": "0.2", "WAR": "1.1", "RAR": "8.8" }
+    { "Player": "Matthew Liberatore", "Age": "26", "IP": "78.0", "G": "18", "GS": "12", "RA9": "4.25", "RA9opp": "4.33", "PPFp": "98.4", "RA9avg": "4.26", "RAA": "2.1", "WAA": "0.2", "WAR": "1.1", "RAR": "8.8" },
+    { "Player": "Andre Pallante", "Age": "27", "IP": "85.1", "G": "15", "GS": "15", "RA9": "4.52", "RA9opp": "4.36", "PPFp": "98.1", "RA9avg": "4.29", "RAA": "-1.2", "WAA": "-0.1", "WAR": "0.9", "RAR": "7.4" },
+    { "Player": "JoJo Romero", "Age": "29", "IP": "31.2", "G": "31", "GS": "0", "RA9": "2.84", "RA9opp": "4.32", "PPFp": "98.2", "RA9avg": "4.25", "RAA": "4.8", "WAA": "0.5", "WAR": "0.8", "RAR": "7.9" }
   ],
   "Appearances": [
     { "Player": "Ivan Herrera", "Age": "26", "G": "74", "GS": "71", "P": "0", "C": "28", "1B": "0", "2B": "0", "3B": "0", "SS": "0", "LF": "0", "ID": "0", "RF": "0", "OF": "0", "DH": "46" },
     { "Player": "Pedro Pagés", "Age": "27", "G": "44", "GS": "41", "P": "0", "C": "44", "1B": "0", "2B": "0", "3B": "0", "SS": "0", "LF": "0", "ID": "0", "RF": "0", "OF": "0", "DH": "0" },
-    { "Player": "Alec Burleson", "Age": "27", "G": "73", "GS": "73", "P": "0", "C": "0", "1B": "65", "2B": "0", "3B": "0", "SS": "0", "LF": "5", "ID": "0", "RF": "3", "OF": "8", "DH": "0" }
+    { "Player": "Alec Burleson", "Age": "27", "G": "73", "GS": "73", "P": "0", "C": "0", "1B": "65", "2B": "0", "3B": "0", "SS": "0", "LF": "5", "ID": "0", "RF": "3", "OF": "8", "DH": "0" },
+    { "Player": "JJ Wetherholt", "Age": "23", "G": "70", "GS": "68", "P": "0", "C": "0", "1B": "0", "2B": "68", "3B": "2", "SS": "0", "LF": "0", "ID": "0", "RF": "0", "OF": "0", "DH": "0" },
+    { "Player": "Masyn Winn", "Age": "24", "G": "67", "GS": "67", "P": "0", "C": "0", "1B": "0", "2B": "0", "3B": "0", "SS": "67", "LF": "0", "ID": "0", "RF": "0", "OF": "0", "DH": "0" },
+    { "Player": "Blaze Jordan", "Age": "23", "G": "32", "GS": "30", "P": "0", "C": "0", "1B": "2", "2B": "0", "3B": "30", "SS": "0", "LF": "0", "ID": "0", "RF": "0", "OF": "0", "DH": "0" }
   ],
   "40Man": [
     { "Rk": "1", "Uni": "18", "Name": "Jordan Walker", "Birth": "us", "OnActv": "*", "IL": "", "Age": "24", "B": "R", "T": "R", "Ht": "6'6\"", "Wt": "250", "DoB": "May 22, 2002", "1stYr": "2021" },
@@ -47,11 +69,17 @@
     { "Rk": "4", "Uni": "0", "Name": "Masyn Winn", "Birth": "us", "OnActv": "*", "IL": "", "Age": "24", "B": "R", "T": "R", "Ht": "5'9\"", "Wt": "185", "DoB": "Mar 21, 2002", "1stYr": "2021" },
     { "Rk": "5", "Uni": "21", "Name": "Lars Nootbaar", "Birth": "us", "OnActv": "*", "IL": "", "Age": "28", "B": "L", "T": "R", "Ht": "6'1\"", "Wt": "205", "DoB": "Sep 8, 1997", "1stYr": "2016" },
     { "Rk": "6", "Uni": "36", "Name": "Michael McGreevy", "Birth": "us", "OnActv": "*", "IL": "", "Age": "25", "B": "L", "T": "R", "Ht": "6'4\"", "Wt": "220", "DoB": "Jul 8, 2000", "1stYr": "2019" },
-    { "Rk": "7", "Uni": "3", "Name": "Dustin May", "Birth": "us", "OnActv": "*", "IL": "", "Age": "28", "B": "R", "T": "R", "Ht": "6'6\"", "Wt": "180", "DoB": "Sep 6, 1997", "1stYr": "2016" }
+    { "Rk": "7", "Uni": "3", "Name": "Dustin May", "Birth": "us", "OnActv": "*", "IL": "", "Age": "28", "B": "R", "T": "R", "Ht": "6'6\"", "Wt": "180", "DoB": "Sep 6, 1997", "1stYr": "2016" },
+    { "Rk": "8", "Uni": "43", "Name": "Pedro Pagés", "Birth": "us", "OnActv": "*", "IL": "", "Age": "27", "B": "R", "T": "R", "Ht": "6'1\"", "Wt": "245", "DoB": "Sep 17, 1998", "1stYr": "2019" },
+    { "Rk": "9", "Uni": "48", "Name": "Ivan Herrera", "Birth": "pa", "OnActv": "*", "IL": "", "Age": "26", "B": "R", "T": "R", "Ht": "5'11\"", "Wt": "220", "DoB": "Jun 1, 2000", "1stYr": "2016" },
+    { "Rk": "10", "Uni": "27", "Name": "Nathan Church", "Birth": "us", "OnActv": "*", "IL": "", "Age": "25", "B": "L", "T": "L", "Ht": "5'10\"", "Wt": "180", "DoB": "Jul 12, 2000", "1stYr": "2022" }
   ],
   "Schedule": [
-    { "Gm#": "79", "Date": "Jun 26", "Tm": "STL", "Opp": "MIA", "W/L": "L", "R": "0", "RA": "4", "Inn": "", "W-L": "42-37", "Rank": "3", "GB": "8.0", "Win": "Meyer", "Loss": "Pallante", "Save": "", "Time": "2:34", "D/N": "N", "Streak": "-" },
-    { "Gm#": "80", "Date": "Jun 27", "Tm": "STL", "Opp": "MIA", "W/L": "L", "R": "1", "RA": "5", "Inn": "", "W-L": "42-38", "Rank": "3", "GB": "8.0", "Win": "Rogers", "Loss": "May", "Save": "", "Time": "2:41", "D/N": "D", "Streak": "--" },
-    { "Gm#": "81", "Date": "Jun 28", "Tm": "STL", "Opp": "MIA", "W/L": "", "R": "", "RA": "", "Inn": "", "W-L": "42-38", "Rank": "3", "GB": "8.0", "Win": "", "Loss": "", "Save": "", "Time": "1:15", "D/N": "D", "Streak": "" }
+    { "Gm#": "76", "Date": "Jun 23", "Tm": "STL", "Opp": "ARI", "W/L": "L", "R": "3", "RA": "4", "Inn": "", "W-L": "42-34", "Rank": "3", "GB": "7.0", "Win": "Gallen", "Loss": "Liberatore", "Save": "Sewell", "Time": "2:35", "D/N": "N", "Streak": "-" },
+    { "Gm#": "77", "Date": "Jun 24", "Tm": "STL", "Opp": "ARI", "W/L": "L", "R": "4", "RA": "9", "Inn": "", "W-L": "42-35", "Rank": "3", "GB": "7.5", "Win": "Montgomery", "Loss": "McGreevy", "Save": "", "Time": "2:51", "D/N": "N", "Streak": "--" },
+    { "Gm#": "78", "Date": "Jun 25", "Tm": "STL", "Opp": "ARI", "W/L": "L", "R": "2", "RA": "5", "Inn": "", "W-L": "42-36", "Rank": "3", "GB": "8.0", "Win": "Nelson", "Loss": "Leahy", "Save": "", "Time": "2:29", "D/N": "D", "Streak": "---" },
+    { "Gm#": "79", "Date": "Jun 26", "Tm": "STL", "Opp": "MIA", "W/L": "L", "R": "0", "RA": "4", "Inn": "", "W-L": "42-37", "Rank": "3", "GB": "8.0", "Win": "Meyer", "Loss": "Pallante", "Save": "", "Time": "2:34", "D/N": "N", "Streak": "----" },
+    { "Gm#": "80", "Date": "Jun 27", "Tm": "STL", "Opp": "MIA", "W/L": "L", "R": "1", "RA": "5", "Inn": "", "W-L": "42-38", "Rank": "3", "GB": "8.0", "Win": "Rogers", "Loss": "May", "Save": "", "Time": "2:41", "D/N": "D", "Streak": "-----" },
+    { "Gm#": "81", "Date": "Jun 28", "Tm": "STL", "Opp": "MIA", "W/L": "W", "R": "2", "RA": "0", "Inn": "", "W-L": "43-38", "Rank": "3", "GB": "7.5", "Win": "Liberatore", "Loss": "Garrett", "Save": "Romero", "Time": "2:22", "D/N": "D", "Streak": "+" }
   ]
 }
