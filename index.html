@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Grimes Watch Floor</title>
 
-<link rel="icon" href="./icon.png" type="image/png">
-<link rel="apple-touch-icon" href="./icon-180.png">
-<link rel="manifest" href="./manifest.json">
+<link rel="icon" href="/cardinals_watch/icon.png" type="image/png">
+<link rel="apple-touch-icon" href="/cardinals_watch/icon-180.png">
+<link rel="manifest" href="/cardinals_watch/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Watch Floor">
 <meta name="theme-color" content="#0E1116">
@@ -257,4 +257,147 @@
 
 const ICONS = {
   rocket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13c-1.5 1.2-2 4.5-2 6 1.5 0 4.8-.5 6-2"/><path d="M12 2c3.5 1.8 6 5.6 6 10l-3.5 3.5L9 16.5 5.5 13C5.5 8.6 8 4.8 12 2z"/><circle cx="12" cy="9" r="1.6"/><path d="M9 16.5 7 21M15 16.5 17 21"/></svg>',
-  football:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 1 13-4 14-14C11 4
+  football:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c8 1 13-4 14-14C11 4 6 9 5 19z"/><path d="M9 15l6-6M10.5 11.5l2 2M13 9l2 2"/></svg>',
+  baseball:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M6 5c2 2 3 4.5 3 7s-1 5-3 7M18 5c-2 2-3 4.5-3 7s1 5 3 7"/></svg>',
+  radar:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.5"/><circle cx="12" cy="12" r="1.6"/><path d="M12 12l7-4"/></svg>',
+  ticket:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2 2 2 0 0 0 0 4 2 2 0 0 1-2 2H6a2 2 0 0 1-2-2 2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>',
+  fuel:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="3" x2="15" y1="22" y2="22"/><line x1="4" x2="14" y1="9" y2="9"/><path d="M14 22V4a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v18"/><path d="M14 13h2a2 2 0 0 1 2 2v2a2 2 0 0 0 2 2 2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 5"/></svg>',
+  trophy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9a6 6 0 0 0 12 0V4H6z"/><path d="M6 5H3v2a3 3 0 0 0 3 3"/><path d="M18 5h3v2a3 3 0 0 1-3 3"/><path d="M12 15v3"/><path d="M8 21h8l-1-3H9z"/></svg>',
+  soccerball:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.2l3 2.2-1.15 3.6h-3.7L9 9.4z"/><path d="M12 7.2V3.2M15 9.4l3.5-1.3M13.85 13l2.2 2.9M10.15 13l-2.2 2.9M9 9.4 5.5 8.1"/></svg>',
+  grid:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>',
+  checkered:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 2v20"/><path d="M6 3h12v8H6z"/><rect x="6" y="3" width="3" height="4" fill="currentColor" stroke="none"/><rect x="12" y="3" width="3" height="4" fill="currentColor" stroke="none"/><rect x="9" y="7" width="3" height="4" fill="currentColor" stroke="none"/><rect x="15" y="7" width="3" height="4" fill="currentColor" stroke="none"/></svg>',
+  compass:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/><circle cx="12" cy="12" r="1.2" fill="currentColor" stroke="none"/></svg>',
+  brain:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2a2.5 2.5 0 0 1 2.5 2.5V20a2.5 2.5 0 0 1-5 0V4.5A2.5 2.5 0 0 1 9.5 2z"/><path d="M14.5 2a2.5 2.5 0 0 0-2.5 2.5"/><path d="M14.5 2A2.5 2.5 0 0 1 17 4.5a2.5 2.5 0 0 1-2.5 2.5"/><path d="M17 4.5A2.5 2.5 0 0 1 19.5 7a2.5 2.5 0 0 1-2.5 2.5"/><path d="M19.5 7A2.5 2.5 0 0 1 22 9.5a2.5 2.5 0 0 1-2.5 2.5"/><path d="M19.5 12a2.5 2.5 0 0 1 0 5"/><path d="M7 4.5A2.5 2.5 0 0 0 4.5 7a2.5 2.5 0 0 0 2.5 2.5"/><path d="M4.5 7A2.5 2.5 0 0 0 2 9.5a2.5 2.5 0 0 0 2.5 2.5"/><path d="M4.5 12a2.5 2.5 0 0 0 0 5"/></svg>',
+};
+
+const grid = document.getElementById('grid');
+const countEl = document.getElementById('count');
+
+/* ---- per-tile share menu: right-click (desktop) / long-press (touch) ---- */
+const menu = document.createElement('div');
+menu.className = 'menu'; menu.setAttribute('role','menu');
+document.body.appendChild(menu);
+let menuOpen = false;
+
+const MI = {
+  share:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>',
+  copy:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>',
+  open:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>'
+};
+
+function openMenu(x,y,s){
+  if(!s.url) return;
+  const hasShare = !!navigator.share;
+  menu.innerHTML =
+    `<div class="mhead" style="color:${s.accent||'#E8B04B'}">${s.name||'Station'}</div>`+
+    (hasShare?`<button data-act="share">${MI.share}<span>Share…</span></button>`:'')+
+    `<button data-act="copy">${MI.copy}<span>Copy link</span></button>`+
+    `<button data-act="open">${MI.open}<span>Open in new tab</span></button>`;
+  menu.querySelectorAll('button').forEach(b=>{
+    b.onclick = async ()=>{
+      const act=b.dataset.act;
+      try{
+        if(act==='share'){ await navigator.share({title:s.name,url:s.url}); }
+        else if(act==='copy'){
+          await navigator.clipboard.writeText(s.url);
+          b.querySelector('span').textContent='Copied'; setTimeout(closeMenu,650); return;
+        }
+        else if(act==='open'){ window.open(s.url,'_blank','noopener'); }
+      }catch(_){}
+      closeMenu();
+    };
+  });
+  menu.style.left='0px'; menu.style.top='0px';
+  const r=menu.getBoundingClientRect(), pad=8;
+  menu.style.left=Math.max(pad,Math.min(x,window.innerWidth -r.width -pad))+'px';
+  menu.style.top =Math.max(pad,Math.min(y,window.innerHeight-r.height-pad))+'px';
+  menu.classList.add('open'); menuOpen=true;
+}
+function closeMenu(){ menu.classList.remove('open'); menuOpen=false; }
+
+window.addEventListener('click',e=>{ if(menuOpen && !menu.contains(e.target)) closeMenu(); });
+window.addEventListener('keydown',e=>{ if(e.key==='Escape') closeMenu(); });
+window.addEventListener('scroll',()=>{ if(menuOpen) closeMenu(); },true);
+window.addEventListener('resize',()=>{ if(menuOpen) closeMenu(); });
+
+function tile(s,i){
+  const live = !!s.url;
+  const el = document.createElement(live ? 'a' : 'div');
+  el.className = 'station' + (live ? '' : ' pending');
+  el.style.setProperty('--accent', s.accent || '#E8B04B');
+  if(live) el.href = s.url;
+  const num = String(i+1).padStart(2,'0');
+  el.innerHTML = `
+    <div class="top">
+      <span class="ico">${ICONS[s.icon]||ICONS.grid}</span>
+      <div style="text-align:right">
+        <div class="num">STATION ${num}</div>
+        <div class="sig"><span class="dot"></span><span class="lbl">${live?'LIVE':'STANDBY'}</span></div>
+      </div>
+    </div>
+    <div class="name">${s.name||'Untitled'}</div>
+    <div class="tag">${s.tag||''}</div>
+    <div class="open">
+      <span>${live?'Open station':'Add url in cardinals_stats.json'}</span>
+      ${live?'<span class="arrow">▸</span>':'<span class="badge">pending</span>'}
+    </div>`;
+
+  // share triggers
+  el.addEventListener('contextmenu', e=>{ if(!s.url) return; e.preventDefault(); openMenu(e.clientX,e.clientY,s); });
+  let lpTimer=null, suppressClick=false;
+  el.addEventListener('touchstart', e=>{
+    if(!s.url) return;
+    const t=e.touches[0];
+    lpTimer=setTimeout(()=>{ suppressClick=true; openMenu(t.clientX,t.clientY,s); }, 480);
+  }, {passive:true});
+  const cancelLP=()=>clearTimeout(lpTimer);
+  el.addEventListener('touchmove', cancelLP, {passive:true});
+  el.addEventListener('touchend', cancelLP);
+  el.addEventListener('click', e=>{ if(suppressClick){ e.preventDefault(); suppressClick=false; } });
+
+  return el;
+}
+
+function render(list){
+  grid.innerHTML = '';
+  list.forEach((s,i)=> grid.appendChild(tile(s,i)));
+  const liveN = list.filter(s=>s.url).length;
+  countEl.textContent = liveN + ' / ' + list.length + ' stations live';
+}
+
+function showNotice(msg){
+  grid.innerHTML = `<div class="notice">${msg}</div>`;
+  countEl.textContent = 'stations not loaded';
+}
+
+(async function loadStations(){
+  try{
+    const res = await fetch('cardinals_stats.json', {cache:'no-store'});
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data = await res.json();
+    const list = Array.isArray(data) ? data
+               : (data && Array.isArray(data.stations) ? data.stations : null);
+    if(!list || list.length===0){
+      showNotice('cardinals_stats.json loaded but holds no stations. Add at least one entry under "stations" to populate the floor.');
+      return;
+    }
+    render(list);
+  }catch(err){
+    showNotice('Couldn’t load cardinals_stats.json. It must sit in the repo root beside index.html and be valid JSON. ('+err.message+')');
+  }
+})();
+
+/* Central-time console clock (correct regardless of device tz) */
+function tick(){
+  const now = new Date();
+  const t = new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',hour12:false,
+            hour:'2-digit',minute:'2-digit',second:'2-digit'}).format(now);
+  const d = new Intl.DateTimeFormat('en-US',{timeZone:'America/Chicago',
+            weekday:'short',year:'numeric',month:'short',day:'2-digit'}).format(now);
+  document.getElementById('time').textContent = t + ' CT';
+  document.getElementById('date').textContent = d;
+}
+tick(); setInterval(tick,1000);
+</script>
+</body>
+</html>
