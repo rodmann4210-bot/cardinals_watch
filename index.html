@@ -134,8 +134,8 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== FIXED SCROLL CONTAINER AND COVERAGE TARGETS ===== */
-  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; position: relative !important; }
+  /* ===== CONTAINER SCROLL CONFIGURATION ===== */
+  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
   .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
@@ -455,7 +455,7 @@ const STATS_CFG={
   batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
   pitching:{sheet:'Cardinals_Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
   fielding:{sheet:'Cardinals_Fielding',cols:['Player','Pos','G','Inn','PO','A','E','DP','Fld%','RF/G'],sort:'G',dir:-1},
-  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir--1},
+  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir:-1},
   valuePitching:{sheet:'value_pitching',cols:['Player','Age','IP','G','GS','RA9','RA9opp','PPFp','RA9avg','RAA','WAA','WAR','RAR'],sort:'WAR',dir:-1},
   appearances:{sheet:'Appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
   fortyMan:{sheet:'40Man',cols:['Rk','Uni','Name','Birth','OnActv','IL','Age','B','T','Ht','Wt','DoB','1stYr'],sort:'Rk',dir:1},
@@ -562,7 +562,7 @@ async function runAIQuery(question){
     const result=await response.json();
     if(result.error){answerEl.innerHTML=`<span style="color:var(--red)">API error: ${result.error.message}</span>`;return;}
     const text=(result.content&&result.content[0]&&result.content[0].text)||'No response.';
-    answerEl.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    answerEl.innerHTML=text.replace(/\*\*(.*?)\*\规/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
     footerEl.textContent='Powered by Claude \u00B7 Based on B-Ref data';
   }catch(e){answerEl.innerHTML=`<span style="color:var(--red)">Could not reach the AI. Check your connection.</span>`;}
   finally{btn.disabled=false;}
