@@ -134,7 +134,7 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== CONTAINER SCROLL CONFIGURATION ===== */
+  /* ===== MASTER SCROLL WINDOW DISPLAY ===== */
   .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
@@ -424,7 +424,10 @@ async function loadPodcast(){
   try{
     const look=await getJSON(`https://itunes.apple.com/lookup?id=${PODCAST_APPLE_ID}&entity=podcast`);
     const feed=look.results&&look.results[0]&&look.results[0].feedUrl;if(!feed)throw new Error("no feed");
-    const rss=await getJSON(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}&count=3`);
+    const u=`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed)}&count=3`;
+    const r=await fetch(u,{cache:"no-store"});
+    if(!r.ok){podFallback();return;}
+    const rss=await r.json();
     const items=(rss.items||[]).slice(0,3);if(!items.length)throw new Error("no items");
     $("pod").innerHTML=items.map(it=>{
       const when=it.pubDate?new Date(it.pubDate).toLocaleDateString(undefined,{month:"short",day:"numeric",year:"numeric"}):"";
@@ -481,7 +484,7 @@ function renderStats(pane){
   const avail=cfg.cols.filter(c=>rows[0].hasOwnProperty(c));
   const sorted=[...rows].sort((a,b)=>{const av=a[sc],bv=b[sc];const an=parseFloat(av),bn=parseFloat(bv);if(!isNaN(an)&&!isNaN(bn))return(an-bn)*sd;return String(av||'').localeCompare(String(bv||''))*sd;});
   let h='<table class="stats-tbl"><thead><tr>';
-  avail.forEach(c=>{const isSorted=c===sc;const arrow=isSorted?(sd===-1?' ▼':' ▲'):'';h+=`<th class="${isSorted?'sorted':''}" data-col="${c}">${c}<span class="sort-arrow">${arrow}</span></th>`;});
+  avail.forEach(c=>{const isSorted=c===sc;const arrow=isSorted?(sd===-1?' ▼':' ▲'):''; h+=`<th class="${isSorted?'sorted':''}" data-col="${c}">${c}<span class="sort-arrow">${arrow}</span></th>`;});
   h+='</tr></thead><tbody>';
   sorted.forEach(row=>{
     h+='<tr>';
@@ -562,7 +565,7 @@ async function runAIQuery(question){
     const result=await response.json();
     if(result.error){answerEl.innerHTML=`<span style="color:var(--red)">API error: ${result.error.message}</span>`;return;}
     const text=(result.content&&result.content[0]&&result.content[0].text)||'No response.';
-    answerEl.innerHTML=text.replace(/\*\*(.*?)\*\规/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    answerEl.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
     footerEl.textContent='Powered by Claude \u00B7 Based on B-Ref data';
   }catch(e){answerEl.innerHTML=`<span style="color:var(--red)">Could not reach the AI. Check your connection.</span>`;}
   finally{btn.disabled=false;}
