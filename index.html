@@ -1,3 +1,4 @@
+<!-- © 2026 Roderick Grimes. All rights reserved. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,7 @@
   .status{text-align:right;font-family:'Barlow Condensed';letter-spacing:.5px}
   .status .live{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase}
   .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.18)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.18)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,.18)}}
   .status .upd{color:var(--muted);font-size:13px;margin-top:4px}
   .hero{margin-top:22px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(120deg,var(--burgundy-deep),var(--panel));box-shadow:0 18px 50px rgba(0,0,0,.5)}
   .hero-top{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line-soft);padding:9px 18px}
@@ -112,149 +113,7 @@
   .drawer-hd button:hover{background:var(--gold);color:var(--burgundy-deep)}
   .drawer-body{padding:18px 20px;overflow-y:auto;flex:1}
   .drawer-body::-webkit-scrollbar{width:8px}.drawer-body::-webkit-scrollbar-thumb{background:var(--burgundy-bright);border-radius:6px}
-  .src{margin-bottom:24px}
-  .src-hd{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
-  .src-hd .nm{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:16px;text-transform:uppercase;color:var(--gold)}
-  .src-hd .tag{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2)}
-  .jump{display:flex;gap:8px;margin-bottom:12px}
-  .jump input{flex:1;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;color:var(--ink);font-family:'Barlow';font-size:14px;padding:10px 12px;outline:none}
-  .jump input:focus{border-color:var(--line)}
-  .jump button{background:var(--burgundy-bright);border:1px solid var(--line-soft);color:#fff;font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:13px;text-transform:uppercase;border-radius:8px;padding:0 16px;cursor:pointer;transition:background .15s}
-  .jump button:hover{background:var(--gold);color:var(--burgundy-deep)}
-  .links{display:flex;flex-direction:column;gap:8px}
-  .links a{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;font-family:'Barlow';font-weight:500;font-size:14.5px;transition:all .15s}
-  .links a:hover{border-color:var(--line);background:var(--panel-2);color:var(--gold);transform:translateX(3px)}
-  .links a .ar{margin-left:auto;color:var(--muted-2);font-size:13px}
-  .links a:hover .ar{color:var(--gold)}
-  .drawer-note{font-family:'Barlow Condensed';font-size:12.5px;letter-spacing:.4px;color:var(--muted-2);line-height:1.5;border-top:1px solid var(--line-soft);padding-top:14px}
-  .drawer-note .g{color:var(--gold-dim)}
-  .bet-launch{position:fixed;right:22px;bottom:84px;z-index:40;display:flex;align-items:center;gap:10px;background:var(--bg-2);color:var(--gold);font-family:'Oswald';font-weight:700;letter-spacing:1.5px;font-size:14px;text-transform:uppercase;border:1px solid var(--gold);border-radius:50px;padding:13px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .15s,background .15s,color .15s}
-  .bet-launch:hover{transform:translateY(-2px);background:var(--gold);color:var(--bg)}
-  .bet-launch .ic{font-size:16px}
-  .links a.feat{border-color:var(--gold);color:var(--gold)}
-
-  /* ===== MASTER CONTAINER SCROLL CONFIGURATION ===== */
-  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
-
-  .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
-  .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
-  .stab{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:12px;text-transform:uppercase;padding:10px 16px;color:var(--muted-2);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
-  .stab:hover{color:var(--ink)}.stab.active{color:var(--gold);border-bottom-color:var(--gold)}
-  .stats-tbl{width:100%;border-collapse:collapse;font-size:13.5px;display: table !important;}
-  .stats-tbl thead tr{background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
-  .stats-tbl th{font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2);padding:8px 10px;text-align:right;white-space:nowrap;cursor:pointer;user-select:none;background:var(--panel-2)}
-  .stats-tbl th:first-child{text-align:left;position:sticky;left:0;background:var(--panel-2);z-index:3}
-  .stats-tbl th.sorted{color:var(--gold)}
-  .stats-tbl th:hover{color:var(--ink)}
-  .stats-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,.03);font-family:'Barlow Condensed';font-size:13.5px;letter-spacing:.3px;white-space:nowrap}
-  .stats-tbl td:first-child{text-align:left;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:var(--panel);z-index:1}
-  .stats-tbl tr:hover td{background:rgba(255,255,255,.04)}
-  .stats-tbl tr:hover td:first-child{background:rgba(255,255,255,.04)}
-  .stats-updated{font-family:'Barlow Condensed';font-size:12px;letter-spacing:.5px;color:var(--muted-2);padding:7px 16px;text-align:right;border-top:1px solid var(--line-soft);background:rgba(255,255,255,.02)}
-  .stats-err{padding:20px 16px;color:var(--muted);font-family:'Barlow Condensed';font-size:14px}
-  .sort-arrow{font-size:9px;margin-left:3px;opacity:.6}
-  .stats-reset-btn{background:none;border:1px solid var(--line);color:var(--gold-dim);font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px;cursor:pointer;margin-left:8px;transition:all .15s}
-  .stats-reset-btn:hover{background:var(--gold);color:var(--burgundy-deep);border-color:var(--gold)}
-  /* ===== AI Query Panel ===== */
-  .ai-body{padding:16px}
-  .ai-input-row{display:flex;gap:10px;align-items:flex-start}
-  .ai-input{flex:1;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:'Barlow';font-size:15px;padding:12px 14px;outline:none;resize:none;min-height:46px;max-height:120px;line-height:1.4;transition:border-color .15s}
-  .ai-input:focus{border-color:var(--gold)}
-  .ai-input::placeholder{color:var(--muted-2)}
-  .ai-btn{background:linear-gradient(160deg,var(--burgundy-bright),var(--burgundy-deep));border:1px solid var(--line);color:var(--gold);font-family:'Oswald';font-weight:700;letter-spacing:1px;font-size:13px;text-transform:uppercase;border-radius:8px;padding:12px 20px;cursor:pointer;white-space:nowrap;transition:all .15s;flex:none}
-  .ai-btn:hover{background:var(--gold);color:var(--burgundy-deep);border-color:var(--gold)}
-  .ai-btn:disabled{opacity:.5;cursor:not-allowed}
-  .ai-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  .ai-chip{font-family:'Barlow Condensed';font-weight:600;font-size:12px;letter-spacing:.5px;padding:5px 12px;border:1px solid var(--line-soft);border-radius:20px;color:var(--muted);cursor:pointer;transition:all .15s;background:rgba(255,255,255,.03)}
-  .ai-chip:hover{border-color:var(--line);color:var(--gold);background:rgba(243,193,75,.06)}
-  .ai-answer{margin-top:16px;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--line-soft);border-radius:8px;font-family:'Barlow';font-size:14.5px;line-height:1.7;color:var(--ink);min-height:60px;display:none}
-  .ai-answer.visible{display:block}
-  .ai-answer strong{color:var(--gold)}
-  .ai-answer .ai-thinking{color:var(--muted-2);font-family:'Barlow Condensed';letter-spacing:1px;font-size:13px;text-transform:uppercase;animation:blink 1.2s infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-  .ai-footer{margin-top:10px;font-family:'Barlow Condensed';font-size:11px;letter-spacing:.5px;color:var(--muted-2);text-align:right}
-</style>
-</head>
-<body>
-<div class="ticker"><div class="tag">BIRD WIRE</div><div class="track" id="ticker"><span>Loading the latest around the league…</span></div></div>
-<div class="wrap">
-  <header>
-    <div class="head">
-      <div class="brand">
-        <div class="crest">STL</div>
-        <div><h1>CARDINALS <span class="g">WATCH</span></h1><div class="sub">Your Team · Every Day · The Birds</div></div>
-      </div>
-      <div class="status"><div class="live"><span class="dot"></span> Live Feed</div><div class="upd" id="updated">Syncing…</div></div>
-    </div>
-    <div class="hero">
-      <div class="hero-top"><div class="lbl" id="heroLbl">Next Up</div><div class="rec" id="record">—</div></div>
-      <div class="hero-body">
-        <div class="matchup"><div class="when" id="gameWhen">—</div><div class="vs" id="gameVs">Loading schedule…</div><div class="meta" id="gameMeta"></div></div>
-        <div class="count" id="countdown"></div>
-      </div>
-    </div>
-  </header>
-  <div class="grid">
-    <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Roster</h2><span class="ct" id="rosterCt"></span></div><div class="p-body scroll" id="roster"><div class="loading">Pulling roster…</div></div></section>
-    <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>Injured List</h2><span class="ct" id="injCt"></span></div><div class="p-body scroll" id="injuries"><div class="loading">Checking the report…</div></div></section>
-
-    <section class="panel col-12">
-      <div class="p-head"><span class="bar"></span><h2>Ask the Stats</h2><span class="ct">AI · B-Ref Database</span></div>
-      <div class="ai-body">
-        <div class="ai-input-row">
-          <textarea class="ai-input" id="aiInput" placeholder="Ask anything about Cardinals stats… Who leads in WAR? Best ERA among starters? How is Jordan Walker performing?" rows="1"></textarea>
-          <button class="ai-btn" id="aiBtn">Ask</button>
-        </div>
-        <div class="ai-chips" id="aiChips">
-          <span class="ai-chip">Who leads the team in HR?</span>
-          <span class="ai-chip">Best ERA among starters</span>
-          <span class="ai-chip">Top 3 in WAR</span>
-          <span class="ai-chip">Jordan Walker's stats</span>
-          <span class="ai-chip">How is the bullpen performing?</span>
-          <span class="ai-chip">Compare Burleson and Walker</span>
-          <span class="ai-chip">Team batting average</span>
-        </div>
-        <div class="ai-answer" id="aiAnswer"></div>
-        <div class="ai-footer" id="aiFooter"></div>
-      </div>
-    </section>
-
-    <section class="panel col-12" id="statsPanel">
-      <div class="p-head">
-        <span class="bar"></span>
-        <h2>Cardinals Stats</h2>
-        <span class="ct">B-Ref Database · Updated Weekly</span>
-        <button class="stats-reset-btn" id="statsReset">↻ Reset</button>
-      </div>
-      <div class="stats-tabs" id="statsTabs">
-        <button class="stab active" data-pane="batting">Batting</button>
-        <button class="stab" data-pane="pitching">Pitching</button>
-        <button class="stab" data-pane="fielding">Fielding</button>
-        <button class="stab" data-pane="valueBatting">WAR · Batting</button>
-        <button class="stab" data-pane="valuePitching">WAR · Pitching</button>
-        <button class="stab" data-pane="appearances">Appearances</button>
-        <button class="stab" data-pane="fortyMan">40-Man Roster</button>
-        <button class="stab" data-pane="schedule">Schedule</button>
-      </div>
-      <div class="stats-scroll" id="statsBody"><div class="loading">Loading stats from B-Ref database…</div></div>
-      <div class="stats-updated" id="statsUpdated">Click any column header to sort ↑↓</div>
-    </section>
-
-    <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Around the League</h2><span class="ct">MLB Wire</span></div><div class="p-body scroll news" id="news"><div class="loading">Loading headlines…</div></div></section>
-    <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>NL Central</h2><span class="ct">Standings</span></div><div class="p-body east" id="east"><div class="loading">Loading division…</div></div></section>
-    <section class="panel col-12"><div class="p-head"><span class="bar"></span><h2>Locked On Cardinals — Latest Episodes</h2><span class="ct">Daily Pod</span></div><div class="p-body pod" id="pod"><div class="loading">Fetching episodes…</div></div></section>
-  </div>
-  <footer>
-    <div>Data: <span class="g">ESPN</span> (scores · roster · injuries · news) · <span class="g">Baseball Reference</span> (stats database) · <span class="g">iTunes / Locked On</span> (podcast). Keyless public feeds.</div>
-    <div>Auto-refresh every 5 min · Stats updated weekly via B-Ref export · <span class="g">⚠ Unofficial endpoints — may occasionally lag</span></div>
-  </footer>
-</div>
-<button class="film-launch" id="filmOpen"><span class="ic">🎞</span> Film Room</button>
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-hd"><span class="bar"></span><h2>Film Room & Analytics</h2><button id="filmClose" aria-label="Close">✕</button></div>
-  <div class="drawer-body">
-    <div class="src">
+  .src">
       <div class="src-hd"><span class="nm">Live Video Room</span><span class="tag">Highlights · Reels</span></div>
       <div class="links">
         <a class="feat" href="https://www.mlb.com/video/search?q=TeamId+%3D+%5B138%5D+Order+By+Timestamp+DESC" target="_blank" rel="noopener">▶ MLB Film Room — Direct Cardinals Clips <span class="ar">↗</span></a>
@@ -302,7 +161,16 @@ const REF2_PREFIX="site:fangraphs.com ";
 const SHOW_GB=/baseball/.test(SPORT_PATH);
 let nextGameDate=null,ROSTER_NAMES=[];
 const $=id=>document.getElementById(id);
-async function getJSON(u){const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error(r.status);return r.json();}
+async function getJSON(u){
+  try {
+    const r=await fetch(u,{cache:"no-store"});
+    if(!r.ok)throw new Error(r.status);
+    return await r.json();
+  } catch(e) {
+    console.warn("Caught request bypass block:", u, e);
+    throw e;
+  }
+}
 function relTime(d){const s=(Date.now()-new Date(d).getTime())/1000;if(s<3600)return Math.max(1,Math.floor(s/60))+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago";}
 const LABELS={offense:"Offense",defense:"Defense",specialTeam:"Special Teams",pitcher:"Pitchers",catcher:"Catchers",infielder:"Infielders",outfielder:"Outfielders",designatedHitter:"Designated Hitter",bench:"Bench"};
 function tcase(s){return (s||"").replace(/([A-Z])/g," $1").replace(/^./,c=>c.toUpperCase()).trim();}
@@ -445,14 +313,14 @@ $("ref1Go").addEventListener("click",()=>ref1Jump($("ref1Input").value));
 $("ref1Input").addEventListener("keydown",e=>{if(e.key==="Enter")ref1Jump($("ref1Input").value);});
 $("ref2Go").addEventListener("click",()=>ref2Jump($("ref2Input").value));
 $("ref2Input").addEventListener("keydown",e=>{if(e.key==="Enter")ref2Jump($("ref2Input").value);});
-function stamp(){$("updated").textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});}
+function stamp(){document.getElementById("updated").textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});}
 
 function refreshAll(){
-  loadSchedule();
-  loadRoster();
-  loadNews();
-  loadEast();
-  loadPodcast();
+  setTimeout(loadSchedule, 10);
+  setTimeout(loadRoster, 60);
+  setTimeout(loadNews, 110);
+  setTimeout(loadEast, 160);
+  setTimeout(loadPodcast, 210);
   stamp();
 }
 refreshAll();setInterval(refreshAll,300000);setInterval(tickCountdown,1000);
@@ -479,9 +347,9 @@ function renderStats(pane){
   const cfg=STATS_CFG[pane];
   if(!cfg){$('statsBody').innerHTML='<div class="stats-err">Unknown table.</div>';return;}
   const rows=(statsData[cfg.sheet]||[]).filter(r=>{
+    if(pane==='schedule') return r['Gm#']!==undefined&&r['Gm#']!=='';
     const n=r['Player']||r['Name']||'';
-    if(!n)return r['Gm#']!==undefined&&r['Gm#']!=='';
-    return n!=='Team Totals';
+    return n&&n!=='Team Totals';
   });
   if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data for this table. Run the export script and re-upload cardinals_stats.json.</div>';return;}
   if(!sortState[pane])sortState[pane]={col:cfg.sort,dir:cfg.dir};
