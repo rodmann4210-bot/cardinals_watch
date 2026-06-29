@@ -134,8 +134,8 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== MASTER SCROLL WINDOW DISPLAY ===== */
-  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
+  /* ===== HIGH DENSITY SCROLL WINDOW DEFINITION ===== */
+  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; position: relative !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
   .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
@@ -449,7 +449,15 @@ $("ref1Input").addEventListener("keydown",e=>{if(e.key==="Enter")ref1Jump($("ref
 $("ref2Go").addEventListener("click",()=>ref2Jump($("ref2Input").value));
 $("ref2Input").addEventListener("keydown",e=>{if(e.key==="Enter")ref2Jump($("ref2Input").value);});
 function stamp(){$("updated").textContent="Updated "+new Date().toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});}
-async function refreshAll(){await Promise.allSettled([loadSchedule(),loadRoster(),loadNews(),loadEast(),loadPodcast()]);stamp();}
+
+function refreshAll(){
+  loadSchedule();
+  loadRoster();
+  loadNews();
+  loadEast();
+  loadPodcast();
+  stamp();
+}
 refreshAll();setInterval(refreshAll,300000);setInterval(tickCountdown,1000);
 
 // ===== Cardinals Stats Panel =====
@@ -495,7 +503,7 @@ function renderStats(pane){
         const opp=fmt(row['Opp']);
         const dateVal=fmt(row['Date']);
         const q=encodeURIComponent(`Cardinals vs ${opp} ${dateVal} 2026 preview`);
-        const searchUrl=`https://www.google.com/search?q=${q}`;
+        const searchUrl=\`https://www.google.com/search?q=\${q}\`;
         v=`<a href="${searchUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">${v}</a>`;
       }
       h+=`<td>${v}</td>`;
