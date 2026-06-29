@@ -134,14 +134,14 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== UPGRADED SCROLL CONFIGURATION ===== */
-  .stats-scroll { height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; }
+  /* ===== MASTER FIX: CONTAINER SCROLL AND STICKY OVERFLOW BOUNDS ===== */
+  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
   .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
   .stab{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:12px;text-transform:uppercase;padding:10px 16px;color:var(--muted-2);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
   .stab:hover{color:var(--ink)}.stab.active{color:var(--gold);border-bottom-color:var(--gold)}
-  .stats-tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .stats-tbl{width:100%;border-collapse:collapse;font-size:13.5px;display: table !important;}
   .stats-tbl thead tr{background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
   .stats-tbl th{font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2);padding:8px 10px;text-align:right;white-space:nowrap;cursor:pointer;user-select:none;background:var(--panel-2)}
   .stats-tbl th:first-child{text-align:left;position:sticky;left:0;background:var(--panel-2);z-index:3}
@@ -362,7 +362,7 @@ async function loadRoster(){
       });
     });
     $("roster").innerHTML=html||'<div class="empty">No roster data.</div>';
-    $("rosterCt").textContent=total?total+" players":"";
+    $("rosterCt").textContent=total?total+" players";
     renderInjuries(injuries);buildPlayerList();
   }catch(e){$("roster").innerHTML='<div class="err">Roster feed unavailable.</div>';$("injuries").innerHTML='<div class="err">Injury feed unavailable.</div>';}
 }
