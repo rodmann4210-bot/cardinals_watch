@@ -1,3 +1,4 @@
+<!-- © 2026 Roderick Grimes. All rights reserved. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -133,8 +134,8 @@
   .bet-launch .ic{font-size:16px}
   .links a.feat{border-color:var(--gold);color:var(--gold)}
 
-  /* ===== SCROLL WINDOW CONFIGURATION ===== */
-  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; }
+  /* ===== FIXED SCROLL CONTAINER AND COVERAGE TARGETS ===== */
+  .stats-scroll { display: block !important; height: 380px !important; max-height: 380px !important; overflow-y: scroll !important; overflow-x: auto !important; position: relative !important; }
 
   .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
   .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
@@ -198,6 +199,7 @@
     <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Roster</h2><span class="ct" id="rosterCt"></span></div><div class="p-body scroll" id="roster"><div class="loading">Pulling roster…</div></div></section>
     <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>Injured List</h2><span class="ct" id="injCt"></span></div><div class="p-body scroll" id="injuries"><div class="loading">Checking the report…</div></div></section>
 
+    <!-- ===== AI STATS QUERY ===== -->
     <section class="panel col-12">
       <div class="p-head"><span class="bar"></span><h2>Ask the Stats</h2><span class="ct">AI · B-Ref Database</span></div>
       <div class="ai-body">
@@ -219,6 +221,7 @@
       </div>
     </section>
 
+    <!-- ===== CARDINALS STATS PANEL ===== -->
     <section class="panel col-12" id="statsPanel">
       <div class="p-head">
         <span class="bar"></span>
@@ -359,7 +362,7 @@ async function loadRoster(){
       });
     });
     $("roster").innerHTML=html||'<div class="empty">No roster data.</div>';
-    $("rosterCt").textContent=total?total+" players":"";
+    $("rosterCt").textContent=total?(total+" players"):"";
     renderInjuries(injuries);buildPlayerList();
   }catch(e){$("roster").innerHTML='<div class="err">Roster feed unavailable.</div>';$("injuries").innerHTML='<div class="err">Injury feed unavailable.</div>';}
 }
@@ -452,7 +455,7 @@ const STATS_CFG={
   batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
   pitching:{sheet:'Cardinals_Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
   fielding:{sheet:'Cardinals_Fielding',cols:['Player','Pos','G','Inn','PO','A','E','DP','Fld%','RF/G'],sort:'G',dir:-1},
-  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir:-1},
+  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir--1},
   valuePitching:{sheet:'value_pitching',cols:['Player','Age','IP','G','GS','RA9','RA9opp','PPFp','RA9avg','RAA','WAA','WAR','RAR'],sort:'WAR',dir:-1},
   appearances:{sheet:'Appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
   fortyMan:{sheet:'40Man',cols:['Rk','Uni','Name','Birth','OnActv','IL','Age','B','T','Ht','Wt','DoB','1stYr'],sort:'Rk',dir:1},
@@ -476,4 +479,137 @@ function renderStats(pane){
   if(!sortState[pane])sortState[pane]={col:cfg.sort,dir:cfg.dir};
   const {col:sc,dir:sd}=sortState[pane];
   const avail=cfg.cols.filter(c=>rows[0].hasOwnProperty(c));
-  const sorted=
+  const sorted=[...rows].sort((a,b)=>{const av=a[sc],bv=b[sc];const an=parseFloat(av),bn=parseFloat(bv);if(!isNaN(an)&&!isNaN(bn))return(an-bn)*sd;return String(av||'').localeCompare(String(bv||''))*sd;});
+  let h='<table class="stats-tbl"><thead><tr>';
+  avail.forEach(c=>{const isSorted=c===sc;const arrow=isSorted?(sd===-1?' ▼':' ▲'):'';h+=`<th class="${isSorted?'sorted':''}" data-col="${c}">${c}<span class="sort-arrow">${arrow}</span></th>`;});
+  h+='</tr></thead><tbody>';
+  sorted.forEach(row=>{
+    h+='<tr>';
+    avail.forEach((c,i)=>{
+      let v=fmt(row[c]);
+      if(i===0) v=cleanName(v);
+      if(pane==='schedule' && c==='Date' && fmt(row['Opp'])!=='—'){
+        const opp=fmt(row['Opp']);
+        const dateVal=fmt(row['Date']);
+        const q=encodeURIComponent(`Cardinals vs ${opp} ${dateVal} 2026 preview`);
+        const searchUrl=`https://www.google.com/search?q=${q}`;
+        v=`<a href="${searchUrl}" target="_blank" rel="noopener" style="color:var(--gold);text-decoration:underline;text-underline-offset:2px">${v}</a>`;
+      }
+      h+=`<td>${v}</td>`;
+    });
+    h+='</tr>';
+  });
+  h+='</tbody></table>';
+  $('statsBody').innerHTML=h;
+  $('statsBody').querySelectorAll('th[data-col]').forEach(th=>{
+    th.addEventListener('click',()=>{const col=th.dataset.col;if(sortState[pane]&&sortState[pane].col===col){sortState[pane].dir*=-1;}else{sortState[pane]={col,dir:-1};}renderStats(pane);});
+  });
+}
+
+async function loadStats(){
+  try{
+    statsData=await getJSON(STATS_JSON);
+    renderStats(curPane);
+    $('statsUpdated').textContent='B-Ref database \u00B7 Click any column header to sort \u2191\u2193 \u00B7 Scroll right for more columns \u2192';
+  }catch(e){
+    $('statsBody').innerHTML='<div class="stats-err">Stats database not found. Run cardinals_export.py \u2192 upload cardinals_stats.json to the repo to populate this panel.</div>';
+  }
+}
+
+$('statsReset').addEventListener('click',()=>{
+  Object.keys(sortState).forEach(k=>delete sortState[k]);
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  document.querySelector('.stab[data-pane="batting"]').classList.add('active');
+  curPane='batting';
+  if(statsData)renderStats('batting');
+  $('statsUpdated').textContent='Reset to default \u00B7 Click any column header to sort \u2191\u2193';
+});
+
+$('statsTabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.stab');if(!btn)return;
+  document.querySelectorAll('.stab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');curPane=btn.dataset.pane;
+  if(statsData)renderStats(curPane);
+});
+loadStats();
+
+// ===== AI Stats Query =====
+const AI_SYSTEM=`You are a knowledgeable St. Louis Cardinals baseball analyst. You have access to the team's 2026 season stats database from Baseball Reference. Answer questions concisely and accurately based only on the data provided. Format numbers clearly. If asked to compare players, use the actual stats. Keep answers to 2-4 sentences unless a longer answer is clearly needed.`;
+let aiStatsCache=null;
+async function getStatsForAI(){if(aiStatsCache)return aiStatsCache;if(statsData){aiStatsCache=statsData;return aiStatsCache;}try{aiStatsCache=await getJSON(STATS_JSON);return aiStatsCache;}catch(e){return null;}}
+function buildStatsContext(data){
+  if(!data)return'No stats data available.';
+  const sections=[];
+  const batting=(data['Batting']||[]).filter(r=>r.Player&&r.Player!=='Team Totals');
+  if(batting.length){sections.push('BATTING (2026 season):\n'+batting.map(r=>`${r.Player}: G=${r.G}, PA=${r.PA}, AB=${r.AB}, R=${r.R}, H=${r.H}, 2B=${r['2B']}, 3B=${r['3B']}, HR=${r.HR}, RBI=${r.RBI}, SB=${r.SB}, BB=${r.BB}, SO=${r.SO}, BA=${r.BA}, OBP=${r.OBP}, SLG=${r.SLG}, OPS+=${r['OPS+']}, WAR=${r.WAR}`).join('\n'));}
+  const pitching=(data['Cardinals_Pitching']||[]).filter(r=>r.Player&&r.Player!=='Team Totals');
+  if(pitching.length){sections.push('PITCHING (2026 season):\n'+pitching.map(r=>`${r.Player}: Pos=${r.Pos}, W=${r.W}, L=${r.L}, ERA=${r.ERA}, IP=${r.IP}, SO=${r.SO}, WHIP=${r.WHIP}, WAR=${r.WAR}`).join('\n'));}
+  const warBat=(data['value_batting']||[]).filter(r=>r.Player&&r.Player!=='Team Totals');
+  if(warBat.length){sections.push('WAR/VALUE BATTING:\n'+warBat.map(r=>`${r.Player}: WAR=${r.WAR}, oWAR=${r.oWAR}, dWAR=${r.dWAR}, Rbat=${r.Rbat}`).join('\n'));}
+  const schedule=(data['Schedule']||[]).filter(r=>r['W/L']&&r['W/L']!=='');
+  if(schedule.length){const last=schedule[schedule.length-1];sections.push(`TEAM RECORD: Current W-L is ${last['W-L']||'unknown'} through game ${last['Gm#']}`);}
+  return sections.join('\n\n');
+}
+async function runAIQuery(question){
+  const answerEl=$('aiAnswer'),footerEl=$('aiFooter'),btn=$('aiBtn');
+  answerEl.classList.add('visible');
+  answerEl.innerHTML='<span class="ai-thinking">Analyzing stats database…</span>';
+  footerEl.textContent='';btn.disabled=true;
+  try{
+    const data=await getStatsForAI();
+    const context=buildStatsContext(data);
+    const response=await fetch('https://sports-ai-phi.vercel.app/api/ask',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({question,context,sport:'St. Louis Cardinals 2026'})});
+    const result=await response.json();
+    if(result.error){answerEl.innerHTML=`<span style="color:var(--red)">API error: ${result.error.message}</span>`;return;}
+    const text=(result.content&&result.content[0]&&result.content[0].text)||'No response.';
+    answerEl.innerHTML=text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+    footerEl.textContent='Powered by Claude \u00B7 Based on B-Ref data';
+  }catch(e){answerEl.innerHTML=`<span style="color:var(--red)">Could not reach the AI. Check your connection.</span>`;}
+  finally{btn.disabled=false;}
+}
+$('aiBtn').addEventListener('click',()=>{const q=$('aiInput').value.trim();if(q)runAIQuery(q);});
+$('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();const q=$('aiInput').value.trim();if(q)runAIQuery(q);}});
+$('aiInput').addEventListener('input',function(){this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';});
+$('aiChips').addEventListener('click',e=>{const chip=e.target.closest('.ai-chip');if(!chip)return;$('aiInput').value=chip.textContent;runAIQuery(chip.textContent);});
+</script>
+
+<div style="margin:28px auto 0;max-width:1080px;padding:14px 16px 6px;border-top:1px solid #27313D;font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#8A94A3;text-align:center">© 2026 R. Grimes · All rights reserved</div>
+<button class="bet-launch" id="betOpen"><span class="ic">💰</span> Betting</button>
+<aside class="drawer" id="betDrawer" aria-hidden="true">
+  <div class="drawer-hd"><span class="bar"></span><h2>Betting Intelligence</h2><button id="betClose" aria-label="Close">✕</button></div>
+  <div class="drawer-body">
+    <div class="src">
+      <div class="src-hd"><span class="nm">Sportsbooks</span><span class="tag">Place your bets</span></div>
+      <div class="links">
+        <a class="feat" href="https://sportsbook.fanduel.com" target="_blank" rel="noopener">FanDuel <span class="ar">↗</span></a>
+        <a href="https://sportsbook.draftkings.com" target="_blank" rel="noopener">DraftKings <span class="ar">↗</span></a>
+        <a href="https://espnbet.com" target="_blank" rel="noopener">ESPN BET <span class="ar">↗</span></a>
+        <a href="https://sports.betmgm.com" target="_blank" rel="noopener">BetMGM <span class="ar">↗</span></a>
+        <a href="https://www.caesars.com/sportsbook-and-casino" target="_blank" rel="noopener">Caesars <span class="ar">↗</span></a>
+        <a href="https://www.bet365.com" target="_blank" rel="noopener">bet365 <span class="ar">↗</span></a>
+      </div>
+    </div>
+    <div class="src">
+      <div class="src-hd"><span class="nm">Odds & Lines</span><span class="tag">MLB · Compare the board</span></div>
+      <div class="links">
+        <a href="https://www.vegasinsider.com/mlb/odds/las-vegas/" target="_blank" rel="noopener">VegasInsider — MLB Lines <span class="ar">↗</span></a>
+        <a href="https://www.oddsshark.com/mlb/odds" target="_blank" rel="noopener">OddsShark — MLB Odds <span class="ar">↗</span></a>
+        <a href="https://www.actionnetwork.com/mlb/odds" target="_blank" rel="noopener">Action Network — MLB <span class="ar">↗</span></a>
+      </div>
+    </div>
+    <div class="drawer-note">Must be <span class="g">21+</span> and physically located where betting is legal. If you or someone you know has a gambling problem, call <span class="g">1-800-GAMBLER</span>.</div>
+  </div>
+</aside>
+<script>
+(function(){
+  var scrim=document.getElementById('scrim'),bet=document.getElementById('betDrawer'),film=document.getElementById('drawer');
+  function openBet(){if(film)film.classList.remove('open');bet.classList.add('open');if(scrim)scrim.classList.add('open');bet.setAttribute('aria-hidden','false');}
+  function closeBet(){bet.classList.remove('open');if(scrim&&!(film&&film.classList.contains('open')))scrim.classList.remove('open');bet.setAttribute('aria-hidden','true');}
+  var bo=document.getElementById('betOpen');if(bo)bo.addEventListener('click',openBet);
+  var bc=document.getElementById('betClose');if(bc)bc.addEventListener('click',closeBet);
+  if(scrim)scrim.addEventListener('click',closeBet);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeBet();});
+})();
+</script>
+</body>
+</html>
