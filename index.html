@@ -237,6 +237,7 @@
 
     <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Around the League</h2><span class="ct">MLB Wire</span></div><div class="p-body scroll news" id="news"><div class="loading">Loading headlines…</div></div></section>
     <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>NL Central</h2><span class="ct">Standings</span></div><div class="p-body east" id="east"><div class="loading">Loading division…</div></div></section>
+    <section class="panel col-12"><div class="p-head"><span class="bar"></span><h2>Locked On Cardinals — Latest Episodes</h2><span class="ct">Daily Pod</span></div><div class="p-body scroll news" id="pod"><div class="loading">Fetching episodes…</div></div></section>
   </div>
   <footer>
     <div>Data: <span class="g">ESPN</span> · <span class="g">Baseball Reference</span> · <span class="g">iTunes</span>.</div>
@@ -259,9 +260,13 @@
 <script>
 const SPORT_PATH="baseball/mlb",SITE=`https://site.api.espn.com/apis/site/v2/sports/${SPORT_PATH}`,TEAM="stl",TEAM_RE="cardinals|st. louis";
 const DIVISION=[{abbr:"stl",name:"Cardinals"},{abbr:"chc",name:"Cubs"},{abbr:"mil",name:"Brewers"},{abbr:"cin",name:"Reds"},{abbr:"pit",name:"Pirates"}];
+const PODCAST_APPLE_ID="1371034395";
+const STATS_JSON="https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json";
+
 let nextGameDate=null,ROSTER_NAMES=[];const $=id=>document.getElementById(id);
 async function getJSON(u){const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error(r.status);return await r.json();}
 function relTime(d){const s=(Date.now()-new Date(d).getTime())/1000;if(s<3600)return Math.max(1,Math.floor(s/60))+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago";}
+
 async function loadSchedule(){
   try{
     const data=await getJSON(`${SITE}/teams/${TEAM}/schedule`),events=(data.events||[]).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
@@ -274,6 +279,7 @@ async function loadSchedule(){
     $("gameMeta").textContent=nextGameDate.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+(comp.venue?` \u00B7 ${comp.venue.fullName}`:"");
   }catch(e){$("gameVs").textContent="Schedule unavailable";}
 }
+
 function tickCountdown(){
   if(!nextGameDate)return;let diff=Math.floor((nextGameDate.getTime()-Date.now())/1000);
   if(diff<0){$("countdown").innerHTML='<div class="unit"><div class="num">LIVE</div><div class="cap">Game Time</div></div>';return;}
@@ -281,6 +287,7 @@ function tickCountdown(){
   const u=(n,c)=>`<div class="unit"><div class="num">${String(n).padStart(2,"0")}</div><div class="cap">${c}</div></div>`;
   $("countdown").innerHTML=u(d,"Days")+'<div class="colon">:</div>'+u(h,"Hrs")+'<div class="colon">:</div>'+u(m,"Min")+'<div class="colon">:</div>'+u(s,"Sec");
 }
+
 async function loadRoster(){
   try{
     const data=await getJSON(`${SITE}/teams/${TEAM}/roster`),groups=data.athletes||[];let html="",total=0,injuries=[];
@@ -297,6 +304,7 @@ async function loadRoster(){
     $("injCt").textContent=injuries.length;
   }catch(e){$("roster").innerHTML='<div class="err">Roster unavailable.</div>';}
 }
+
 async function loadNews(){
   try{
     const data=await getJSON(`${SITE}/news?limit=10`),arts=data.articles||[];
@@ -304,6 +312,7 @@ async function loadNews(){
     $("ticker").innerHTML=arts.map(a=>`<span>${a.headline}</span>`).join("");
   }catch(e){}
 }
+
 async function loadEast(){
   try{
     const res=await Promise.all(DIVISION.map(t=>getJSON(`${SITE}/teams/${t.abbr}`)));
@@ -313,10 +322,27 @@ async function loadEast(){
     }).join("");
   }catch(e){}
 }
-function refreshAll(){loadSchedule();loadRoster();loadNews();loadEast();document.getElementById("updated").textContent="Updated "+new Date().toLocaleTimeString();}
+
+async function loadPodcast(){
+  try{
+    const look=await getJSON(`https://itunes.apple.com/lookup?id=${PODCAST_APPLE_ID}&entity=podcast`);
+    const feedUrl=look.results?.[0]?.feedUrl;if(!feedUrl)throw new Error();
+    const rss=await getJSON(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=3`);
+    if(!rss.items||!rss.items.length)throw new Error();
+    $("pod").innerHTML=rss.items.map(it=>{
+      const when=it.pubDate?new Date(it.pubDate).toLocaleDateString(undefined,{month:"short",day:"numeric"}):"";
+      return `<a href="${it.link}" target="_blank" rel="noopener"><div class="hl">${it.title}</div><div class="ds">${it.description||""}</div><div class="tm">${when}</div></a>`;
+    }).join("");
+  }catch(e){
+    $("pod").innerHTML=`<div class="podlinks">
+      <a href="https://podcasts.apple.com/us/podcast/id${PODCAST_APPLE_ID}" target="_blank" rel="noopener">▶ Listen on Apple Podcasts</a>
+    </div>`;
+  }
+}
+
+function refreshAll(){loadSchedule();loadRoster();loadNews();loadEast();loadPodcast();document.getElementById("updated").textContent="Updated "+new Date().toLocaleTimeString();}
 refreshAll();setInterval(refreshAll,300000);setInterval(tickCountdown,1000);
 
-const STATS_JSON='https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json';
 const STATS_CFG={
   batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
   pitching:{sheet:'Cardinals_Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
@@ -335,7 +361,7 @@ function renderStats(pane){
     if(pane==='schedule') return r['Gm#']!==undefined&&r['Gm#']!=='';
     return (r['Player']||r['Name']||'')!=='Team Totals';
   });
-  if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data found.</div>';return;}
+  if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data found in sheet: '+cfg.sheet+'</div>';return;}
   if(!sortState[pane])sortState[pane]={col:cfg.sort,dir:cfg.dir};const {col:sc,dir:sd}=sortState[pane];
   const avail=cfg.cols.filter(c=>rows[0].hasOwnProperty(c)||c==='Player');
   let h='<table class="stats-tbl"><thead><tr>';
@@ -351,7 +377,7 @@ function renderStats(pane){
   $('statsBody').innerHTML=h+'</tbody></table>';
   $('statsBody').querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const col=th.dataset.col;sortState[pane]={col,dir:sortState[pane]?.col===col?sortState[pane].dir*-1:-1};renderStats(pane);});});
 }
-async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to load database.</div>';}}
+async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to fetch database file. Verify that cardinals_stats.json exists in your repository root.</div>';}}
 $('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
 loadStats();
 $("filmOpen").addEventListener("click",()=>{$("scrim").classList.add("open");$("drawer").classList.add("open");});
