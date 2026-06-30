@@ -261,6 +261,7 @@
 const SPORT_PATH="baseball/mlb",SITE=`https://site.api.espn.com/apis/site/v2/sports/${SPORT_PATH}`,TEAM="stl",TEAM_RE="cardinals|st. louis";
 const DIVISION=[{abbr:"stl",name:"Cardinals"},{abbr:"chc",name:"Cubs"},{abbr:"mil",name:"Brewers"},{abbr:"cin",name:"Reds"},{abbr:"pit",name:"Pirates"}];
 const PODCAST_APPLE_ID="1371034395";
+const POD_NAME="Locked On Cardinals";
 const STATS_JSON="https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json";
 
 let nextGameDate=null,ROSTER_NAMES=[];const $=id=>document.getElementById(id);
@@ -355,6 +356,7 @@ const STATS_CFG={
 };
 let statsData=null,curPane='batting';const sortState={};
 function fmt(v){return v===null||v===undefined||String(v).trim()===''?'—':String(v).trim();}
+
 function renderStats(pane){
   if(!statsData)return;const cfg=STATS_CFG[pane];
   const rows=(statsData[cfg.sheet]||[]).filter(r=>{
@@ -377,9 +379,94 @@ function renderStats(pane){
   $('statsBody').innerHTML=h+'</tbody></table>';
   $('statsBody').querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const col=th.dataset.col;sortState[pane]={col,dir:sortState[pane]?.col===col?sortState[pane].dir*-1:-1};renderStats(pane);});});
 }
-async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to fetch database file. Verify that cardinals_stats.json exists in your repository root.</div>';}}
+
+async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to fetch database file.</div>';}}
 $('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
 loadStats();
+
+// --- ASK THE STATS SEARCH ENGINE LOGIC ---
+function handleSearch(query) {
+  if (!statsData || !query.trim()) return;
+  const ans = $("aiAnswer");
+  ans.classList.add("visible");
+  ans.innerHTML = '<div class="ai-thinking">Scanning Baseball-Reference Database...</div>';
+  
+  setTimeout(() => {
+    const q = query.toLowerCase().trim();
+    let responseHtml = "";
+
+    if (q.includes("leader") || q.includes("leads") || q.includes("most hr") || q.includes("home run")) {
+      const batters = statsData["Batting"] || [];
+      const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.HR)));
+      if (valid.length) {
+        valid.sort((a, b) => parseFloat(b.HR) - parseFloat(a.HR));
+        responseHtml = `The current team home run leader is <strong>${valid[0].Player}</strong> with <strong>${valid[0].HR} HR</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.HR || 0} HR).`;
+      }
+    } 
+    else if (q.includes("era") || q.includes("best starter") || q.includes("pitcher")) {
+      const pitchers = statsData["Cardinals_Pitching"] || [];
+      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && parseFloat(p.IP) > 20 && !isNaN(parseFloat(p.ERA)));
+      if (valid.length) {
+        valid.sort((a, b) => parseFloat(a.ERA) - parseFloat(b.ERA));
+        responseHtml = `The qualifying pitcher with the lowest ERA on the team is <strong>${valid[0].Player}</strong> with a sparkling <strong>${valid[0].ERA} ERA</strong> over ${valid[0].IP} innings pitched.`;
+      }
+    } 
+    else if (q.includes("war") || q.includes("top 3")) {
+      const batters = statsData["Batting"] || [];
+      const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.WAR)));
+      if (valid.length) {
+        valid.sort((a, b) => parseFloat(b.WAR) - parseFloat(a.WAR));
+        responseHtml = `The top players ranked by total Wins Above Replacement (WAR) are:<br>1. <strong>${valid[0].Player}</strong> (${valid[0].WAR} WAR)<br>2. <strong>${valid[1]?.Player || "N/A"}</strong> (${valid[1]?.WAR || 0} WAR)<br>3. <strong>${valid[2]?.Player || "N/A"}</strong> (${valid[2]?.WAR || 0} WAR).`;
+      }
+    } 
+    else {
+      let foundPlayer = null;
+      let bStats = null;
+      let pStats = null;
+      
+      for (const sheet of ["Batting", "Cardinals_Pitching"]) {
+        const match = (statsData[sheet] || []).find(r => r.Player && q.includes(r.Player.toLowerCase()));
+        if (match) {
+          foundPlayer = match.Player;
+          if (sheet === "Batting") bStats = match;
+          if (sheet === "Cardinals_Pitching") pStats = match;
+        }
+      }
+
+      if (foundPlayer) {
+        if (bStats) {
+          responseHtml = `<strong>${foundPlayer}</strong> (Batting): hitting <strong>.${String(bStats.BA).split('.')[1] || bStats.BA}</strong> with <strong>${bStats.HR} HR</strong>, <strong>${bStats.RBI} RBI</strong>, and a <strong>${bStats.WAR} WAR</strong> over ${bStats.G} games.`;
+        } else if (pStats) {
+          responseHtml = `<strong>${foundPlayer}</strong> (Pitching): carries a <strong>${pStats.ERA} ERA</strong> with a <strong>${pStats.W}-${pStats.L}</strong> record, <strong>${pStats.SO} strikeouts</strong>, and a <strong>${pStats.WHIP} WHIP</strong>.`;
+        }
+      } else {
+        responseHtml = `I searched the database for "${query}" but couldn't find a matching calculation. Try typing a specific active player's name (like 'Jordan Walker') or ask 'Who leads the team in HR?'.`;
+      }
+    }
+
+    ans.innerHTML = responseHtml;
+    $("aiFooter").textContent = "Source: Local cardinals_stats.json connection profile";
+  }, 400);
+}
+
+$("aiBtn").addEventListener("click", () => {
+  handleSearch($("aiInput").value);
+});
+
+$("aiInput").addEventListener("keypress", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    handleSearch($("aiInput").value);
+  }
+});
+
+$("aiChips").addEventListener("click", (e) => {
+  const chip = e.target.closest(".ai-chip");
+  if (!chip) return;
+  $("aiInput").value = chip.textContent;
+  handleSearch(chip.textContent);
+});
+
 $("filmOpen").addEventListener("click",()=>{$("scrim").classList.add("open");$("drawer").classList.add("open");});
 $("filmClose").addEventListener("click",()=>{$("scrim").classList.remove("open");$("drawer").classList.remove("open");});
 </script>
