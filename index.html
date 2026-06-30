@@ -384,7 +384,7 @@ async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(c
 $('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
 loadStats();
 
-// --- ASK THE STATS SEARCH ENGINE LOGIC ---
+// --- UPGRADED ASK THE STATS SEARCH ENGINE LOGIC ---
 function handleSearch(query) {
   if (!statsData || !query.trim()) return;
   const ans = $("aiAnswer");
@@ -395,7 +395,26 @@ function handleSearch(query) {
     const q = query.toLowerCase().trim();
     let responseHtml = "";
 
-    if (q.includes("leader") || q.includes("leads") || q.includes("most hr") || q.includes("home run")) {
+    // 1. PITCHING WINS LOOKUP
+    if (q.includes("pitching wins") || q.includes("most wins") || (q.includes("wins") && q.includes("pitcher"))) {
+      const pitchers = statsData["Cardinals_Pitching"] || [];
+      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.W)));
+      if (valid.length) {
+        valid.sort((a, b) => parseFloat(b.W) - parseFloat(a.W));
+        responseHtml = `The team leader in pitching wins is <strong>${valid[0].Player}</strong> with a record of <strong>${valid[0].W}-${valid[0].L}</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.W || 0} wins).`;
+      }
+    }
+    // 2. STRIKEOUTS LOOKUP
+    else if (q.includes("strikeout") || q.includes("most so") || q.includes("leads in so")) {
+      const pitchers = statsData["Cardinals_Pitching"] || [];
+      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.SO)));
+      if (valid.length) {
+        valid.sort((a, b) => parseFloat(b.SO) - parseFloat(a.SO));
+        responseHtml = `<strong>${valid[0].Player}</strong> leads the pitching staff with <strong>${valid[0].SO} strikeouts</strong> over ${valid[0].IP} innings.`;
+      }
+    }
+    // 3. HOME RUNS LOOKUP
+    else if (q.includes("leader") || q.includes("leads") || q.includes("most hr") || q.includes("home run") || q.includes("hr")) {
       const batters = statsData["Batting"] || [];
       const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.HR)));
       if (valid.length) {
@@ -403,14 +422,16 @@ function handleSearch(query) {
         responseHtml = `The current team home run leader is <strong>${valid[0].Player}</strong> with <strong>${valid[0].HR} HR</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.HR || 0} HR).`;
       }
     } 
-    else if (q.includes("era") || q.includes("best starter") || q.includes("pitcher")) {
+    // 4. LOWEST ERA LOOKUP
+    else if (q.includes("era") || q.includes("best starter")) {
       const pitchers = statsData["Cardinals_Pitching"] || [];
       const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && parseFloat(p.IP) > 20 && !isNaN(parseFloat(p.ERA)));
       if (valid.length) {
         valid.sort((a, b) => parseFloat(a.ERA) - parseFloat(b.ERA));
-        responseHtml = `The qualifying pitcher with the lowest ERA on the team is <strong>${valid[0].Player}</strong> with a sparkling <strong>${valid[0].ERA} ERA</strong> over ${valid[0].IP} innings pitched.`;
+        responseHtml = `The qualifying pitcher with the lowest ERA on the team is <strong>${valid[0].Player}</strong> with a sparkling <strong>${valid[0].ERA} ERA</strong>.`;
       }
     } 
+    // 5. WAR LOOKUP
     else if (q.includes("war") || q.includes("top 3")) {
       const batters = statsData["Batting"] || [];
       const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.WAR)));
@@ -419,6 +440,7 @@ function handleSearch(query) {
         responseHtml = `The top players ranked by total Wins Above Replacement (WAR) are:<br>1. <strong>${valid[0].Player}</strong> (${valid[0].WAR} WAR)<br>2. <strong>${valid[1]?.Player || "N/A"}</strong> (${valid[1]?.WAR || 0} WAR)<br>3. <strong>${valid[2]?.Player || "N/A"}</strong> (${valid[2]?.WAR || 0} WAR).`;
       }
     } 
+    // 6. INDIVIDUAL PLAYER LOOKUP
     else {
       let foundPlayer = null;
       let bStats = null;
@@ -435,12 +457,12 @@ function handleSearch(query) {
 
       if (foundPlayer) {
         if (bStats) {
-          responseHtml = `<strong>${foundPlayer}</strong> (Batting): hitting <strong>.${String(bStats.BA).split('.')[1] || bStats.BA}</strong> with <strong>${bStats.HR} HR</strong>, <strong>${bStats.RBI} RBI</strong>, and a <strong>${bStats.WAR} WAR</strong> over ${bStats.G} games.`;
+          responseHtml = `<strong>${foundPlayer}</strong>: hitting <strong>.${String(bStats.BA).split('.')[1] || bStats.BA}</strong> with <strong>${bStats.HR} HR</strong>, <strong>${bStats.RBI} RBI</strong>, and a <strong>${bStats.WAR} WAR</strong>.`;
         } else if (pStats) {
-          responseHtml = `<strong>${foundPlayer}</strong> (Pitching): carries a <strong>${pStats.ERA} ERA</strong> with a <strong>${pStats.W}-${pStats.L}</strong> record, <strong>${pStats.SO} strikeouts</strong>, and a <strong>${pStats.WHIP} WHIP</strong>.`;
+          responseHtml = `<strong>${foundPlayer}</strong>: carries a <strong>${pStats.ERA} ERA</strong> with a <strong>${pStats.W}-${pStats.L}</strong> record and <strong>${pStats.SO} SO</strong>.`;
         }
       } else {
-        responseHtml = `I searched the database for "${query}" but couldn't find a matching calculation. Try typing a specific active player's name (like 'Jordan Walker') or ask 'Who leads the team in HR?'.`;
+        responseHtml = `I searched the database for "${query}" but couldn't find a matching calculation. Try asking 'Who leads the team in pitching wins?' or 'Jordan Walker's stats'.`;
       }
     }
 
