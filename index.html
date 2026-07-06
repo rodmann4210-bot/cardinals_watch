@@ -7,7 +7,7 @@
 <title>Cardinals Watch — Your Team. Every Day.</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght=300;400;500;600;700&family=Barlow:wght=400;500;600;700&family=Barlow+Condensed:wght=500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{--burgundy:#b3122e;--burgundy-deep:#7a0c1f;--burgundy-bright:#c41e3a;--gold:#f3c14b;--gold-dim:#c79a3a;--bg:#0a0f1c;--bg-2:#0f1526;--panel:#141b30;--panel-2:#18203a;--ink:#f3ece0;--muted:#a9b4c8;--muted-2:#6f7b93;--red:#ff8275;--green:#5fb47a;--line:rgba(243,193,75,.22);--line-soft:rgba(243,193,75,.10);--glow1:rgba(196,30,58,.42);--glow2:rgba(12,26,48,.6);--stripe:rgba(243,193,75,.022)}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -314,14 +314,40 @@ async function loadNews(){
   }catch(e){}
 }
 
+/* Upgraded to parse live win-loss statistics and calculate actual percentage sorting boundaries */
 async function loadEast(){
   try{
     const res=await Promise.all(DIVISION.map(t=>getJSON(`${SITE}/teams/${t.abbr}`)));
-    $("east").innerHTML=res.map((d,i)=>{
-      const t=d.team,me=t.abbreviation.toLowerCase()===TEAM?" me":"",rec=t.record?.items[0]?.summary||"—";
-      return `<div class="row${me}"><div class="tinfo"><span class="rank">${i+1}</span><img src="${t.logos?.[0]?.href||""}" alt=""><span class="tn">${t.shortDisplayName}</span></div><span class="rec">${rec}</span></div>`;
+    
+    // Parse records and compute win percentage math locally before sorting
+    const processedTeams = res.map(d => {
+      const t = d.team;
+      const recSummary = t.record?.items[0]?.summary || "0-0";
+      const parts = recSummary.split("-");
+      const wins = parseInt(parts[0]) || 0;
+      const losses = parseInt(parts[1]) || 0;
+      const winPct = (wins + losses) > 0 ? (wins / (wins + losses)) : 0;
+      
+      return {
+        teamObj: t,
+        summary: recSummary,
+        winPct: winPct
+      };
+    });
+
+    // Enforce high-to-low mathematical alignment ranking
+    processedTeams.sort((a, b) => b.winPct - a.winPct);
+
+    // Dynamic row rendering
+    $("east").innerHTML = processedTeams.map((item, index) => {
+      const t = item.teamObj;
+      const me = t.abbreviation.toLowerCase() === TEAM ? " me" : "";
+      return `<div class="row${me}"><div class="tinfo"><span class="rank">${index + 1}</span><img src="${t.logos?.[0]?.href || ""}" alt=""><span class="tn">${t.shortDisplayName}</span></div><span class="rec">${item.summary}</span></div>`;
     }).join("");
-  }catch(e){}
+    
+  } catch(e) {
+    $("east").innerHTML = '<div class="err">Division standings layout stream timed out.</div>';
+  }
 }
 
 async function loadPodcast(){
@@ -381,10 +407,9 @@ function renderStats(pane){
 }
 
 async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to fetch database file.</div>';}}
-$('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove('active'));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
+$('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove("active"));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
 loadStats();
 
-// --- UPGRADED ASK THE STATS SEARCH ENGINE LOGIC ---
 function handleSearch(query) {
   if (!statsData || !query.trim()) return;
   const ans = $("aiAnswer");
@@ -395,7 +420,6 @@ function handleSearch(query) {
     const q = query.toLowerCase().trim();
     let responseHtml = "";
 
-    // 1. PITCHING WINS LOOKUP
     if (q.includes("pitching wins") || q.includes("most wins") || (q.includes("wins") && q.includes("pitcher"))) {
       const pitchers = statsData["Cardinals_Pitching"] || [];
       const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.W)));
@@ -404,7 +428,6 @@ function handleSearch(query) {
         responseHtml = `The team leader in pitching wins is <strong>${valid[0].Player}</strong> with a record of <strong>${valid[0].W}-${valid[0].L}</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.W || 0} wins).`;
       }
     }
-    // 2. STRIKEOUTS LOOKUP
     else if (q.includes("strikeout") || q.includes("most so") || q.includes("leads in so")) {
       const pitchers = statsData["Cardinals_Pitching"] || [];
       const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.SO)));
@@ -413,7 +436,6 @@ function handleSearch(query) {
         responseHtml = `<strong>${valid[0].Player}</strong> leads the pitching staff with <strong>${valid[0].SO} strikeouts</strong> over ${valid[0].IP} innings.`;
       }
     }
-    // 3. HOME RUNS LOOKUP
     else if (q.includes("leader") || q.includes("leads") || q.includes("most hr") || q.includes("home run") || q.includes("hr")) {
       const batters = statsData["Batting"] || [];
       const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.HR)));
@@ -422,7 +444,6 @@ function handleSearch(query) {
         responseHtml = `The current team home run leader is <strong>${valid[0].Player}</strong> with <strong>${valid[0].HR} HR</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.HR || 0} HR).`;
       }
     } 
-    // 4. LOWEST ERA LOOKUP
     else if (q.includes("era") || q.includes("best starter")) {
       const pitchers = statsData["Cardinals_Pitching"] || [];
       const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && parseFloat(p.IP) > 20 && !isNaN(parseFloat(p.ERA)));
@@ -431,7 +452,6 @@ function handleSearch(query) {
         responseHtml = `The qualifying pitcher with the lowest ERA on the team is <strong>${valid[0].Player}</strong> with a sparkling <strong>${valid[0].ERA} ERA</strong>.`;
       }
     } 
-    // 5. WAR LOOKUP
     else if (q.includes("war") || q.includes("top 3")) {
       const batters = statsData["Batting"] || [];
       const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.WAR)));
@@ -440,7 +460,6 @@ function handleSearch(query) {
         responseHtml = `The top players ranked by total Wins Above Replacement (WAR) are:<br>1. <strong>${valid[0].Player}</strong> (${valid[0].WAR} WAR)<br>2. <strong>${valid[1]?.Player || "N/A"}</strong> (${valid[1]?.WAR || 0} WAR)<br>3. <strong>${valid[2]?.Player || "N/A"}</strong> (${valid[2]?.WAR || 0} WAR).`;
       }
     } 
-    // 6. INDIVIDUAL PLAYER LOOKUP
     else {
       let foundPlayer = null;
       let bStats = null;
