@@ -1,515 +1,309 @@
-<!-- © 2026 Roderick Grimes. All rights reserved. -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cardinals Watch — Your Team. Every Day.</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght=300;400;500;600;700&family=Barlow:wght=400;500;600;700&family=Barlow+Condensed:wght=500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{--burgundy:#b3122e;--burgundy-deep:#7a0c1f;--burgundy-bright:#c41e3a;--gold:#f3c14b;--gold-dim:#c79a3a;--bg:#0a0f1c;--bg-2:#0f1526;--panel:#141b30;--panel-2:#18203a;--ink:#f3ece0;--muted:#a9b4c8;--muted-2:#6f7b93;--red:#ff8275;--green:#5fb47a;--line:rgba(243,193,75,.22);--line-soft:rgba(243,193,75,.10);--glow1:rgba(196,30,58,.42);--glow2:rgba(12,26,48,.6);--stripe:rgba(243,193,75,.022)}
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg);color:var(--ink);font-family:'Barlow',sans-serif;-webkit-font-smoothing:antialiased}
-  body{min-height:100vh;background:radial-gradient(1200px 600px at 80% -10%,var(--glow1),transparent 60%),radial-gradient(900px 500px at -10% 110%,var(--glow2),transparent 55%),repeating-linear-gradient(135deg,var(--stripe) 0 2px,transparent 2px 26px),var(--bg);background-attachment:fixed;padding:0 0 48px}
-  a{color:inherit;text-decoration:none}
-  .wrap{max-width:1280px;margin:0 auto;padding:0 20px}
-  .ticker{border-bottom:1px solid var(--line);background:linear-gradient(90deg,var(--burgundy-deep),var(--burgundy));overflow:hidden;white-space:nowrap;height:34px;display:flex;align-items:center}
-  .ticker .tag{background:var(--gold);color:var(--burgundy-deep);font-family:'Oswald';font-weight:700;font-size:12px;letter-spacing:1.5px;padding:0 12px;height:34px;display:flex;align-items:center;flex:none;z-index:2}
-  .ticker .track{display:inline-flex;align-items:center;animation:scroll 70s linear infinite;will-change:transform}
-  .ticker .track span{font-family:'Barlow Condensed';font-weight:600;font-size:14px;letter-spacing:.4px;color:var(--ink);padding:0 26px;position:relative;opacity:.92}
-  .ticker .track span::before{content:"\25C6";color:var(--gold);position:absolute;left:4px;font-size:8px;top:50%;transform:translateY(-50%)}
-  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  header{padding:26px 0 18px;border-bottom:1px solid var(--line-soft)}
-  .head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px}
-  .brand{display:flex;align-items:center;gap:16px}
-  .crest{width:54px;height:54px;flex:none;border-radius:6px;background:linear-gradient(160deg,var(--burgundy-bright),var(--burgundy-deep));border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:700;color:var(--gold);font-size:22px;box-shadow:0 6px 22px rgba(0,0,0,.5),inset 0 0 0 3px rgba(0,0,0,.35)}
-  .brand h1{font-family:'Oswald';font-weight:700;font-size:30px;letter-spacing:1px;line-height:1;text-transform:uppercase}
-  .brand h1 .g{color:var(--gold)}
-  .brand .sub{font-family:'Barlow Condensed';font-weight:600;letter-spacing:3px;font-size:12px;color:var(--gold-dim);text-transform:uppercase;margin-top:5px}
-  .status{text-align:right;font-family:'Barlow Condensed';letter-spacing:.5px}
-  .status .live{display:inline-flex;align-items:center;gap:7px;color:var(--gold);font-weight:700;font-size:13px;letter-spacing:2px;text-transform:uppercase}
-  .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);animation:pulse 2s infinite}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(255,255,255,.18)}70%{box-shadow:0 0 0 9px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,.18)}}
-  .status .upd{color:var(--muted);font-size:13px;margin-top:4px}
-  .hero{margin-top:22px;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:linear-gradient(120deg,var(--burgundy-deep),var(--panel));box-shadow:0 18px 50px rgba(0,0,0,.5)}
-  .hero-top{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line-soft);padding:9px 18px}
-  .hero-top .lbl{font-family:'Oswald';font-weight:600;letter-spacing:3px;font-size:13px;color:var(--gold);text-transform:uppercase}
-  .hero-top .rec{font-family:'Oswald';font-weight:500;letter-spacing:1px;font-size:14px;color:var(--ink)}
-  .hero-body{display:grid;grid-template-columns:1.3fr 1fr;gap:18px;padding:22px 24px}
-  .matchup .when{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;color:var(--gold-dim);text-transform:uppercase;font-size:14px}
-  .matchup .vs{font-family:'Oswald';font-weight:700;font-size:34px;line-height:1.05;margin-top:6px;text-transform:uppercase}
-  .matchup .vs .opp{color:var(--gold)}
-  .matchup .meta{color:var(--muted);font-size:15px;margin-top:10px;font-family:'Barlow Condensed';letter-spacing:.5px}
-  .count{display:flex;gap:10px;align-items:center;justify-content:flex-end}
-  .count .unit{text-align:center;min-width:62px}
-  .count .num{font-family:'Oswald';font-weight:700;font-size:42px;color:var(--gold);line-height:1}
-  .count .cap{font-family:'Barlow Condensed';font-weight:600;letter-spacing:2px;font-size:11px;color:var(--muted-2);text-transform:uppercase;margin-top:5px}
-  .count .colon{font-family:'Oswald';font-weight:600;font-size:34px;color:var(--burgundy-bright);align-self:flex-start;margin-top:-2px}
-  .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:20px}
-  .panel{grid-column:span 6;background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line-soft);border-radius:10px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 10px 30px rgba(0,0,0,.35)}
-  .col-4{grid-column:span 4}.col-8{grid-column:span 8}.col-12{grid-column:span 12}
-  .p-head{display:flex;align-items:center;gap:10px;padding:12px 16px;background:linear-gradient(90deg,var(--burgundy),var(--burgundy-deep));border-bottom:1px solid var(--line)}
-  .p-head .bar{width:4px;height:18px;background:var(--gold);border-radius:2px;flex:none}
-  .p-head h2{font-family:'Oswald';font-weight:600;letter-spacing:2px;font-size:15px;text-transform:uppercase;flex:1}
-  .p-head .ct{font-family:'Oswald';font-weight:600;font-size:13px;color:var(--gold);letter-spacing:1px}
-  .p-body{padding:8px 0;flex:1}
-  .scroll{max-height:330px;overflow-y:auto}
-  .scroll::-webkit-scrollbar{width:8px}.scroll::-webkit-scrollbar-thumb{background:var(--burgundy-bright);border-radius:6px}.scroll::-webkit-scrollbar-track{background:transparent}
-  .grouphd{font-family:'Oswald';font-weight:600;letter-spacing:2px;font-size:12px;color:var(--gold-dim);text-transform:uppercase;padding:10px 16px 4px;border-top:1px solid var(--line-soft)}
-  .grouphd:first-child{border-top:none}
-  .row{display:flex;align-items:center;gap:12px;padding:7px 16px;border-bottom:1px solid rgba(255,255,255,.03);transition:background .15s}
-  .row:hover{background:rgba(255,255,255,.04)}
-  .jersey{font-family:'Oswald';font-weight:700;font-size:15px;color:var(--gold);width:34px;text-align:center;flex:none}
-  .nm{font-weight:600;font-size:15px;flex:1}
-  .pos{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;font-size:13px;color:var(--muted);background:rgba(255,255,255,.05);padding:2px 8px;border-radius:4px}
-  .badge{font-family:'Barlow Condensed';font-weight:700;letter-spacing:.5px;font-size:11px;padding:2px 8px;border-radius:4px;text-transform:uppercase}
-  .badge.out{background:rgba(226,87,76,.18);color:var(--red);border:1px solid rgba(226,87,76,.45)}
-  .badge.q{background:rgba(255,182,18,.16);color:var(--gold);border:1px solid rgba(255,182,18,.4)}
-  .news a{display:block;padding:11px 16px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
-  .news a:hover{background:rgba(255,255,255,.04)}
-  .news .hl{font-family:'Oswald';font-weight:500;font-size:15.5px;line-height:1.25}
-  .news a:hover .hl{color:var(--gold)}
-  .news .ds{color:var(--muted);font-size:13.5px;margin-top:4px;line-height:1.4}
-  .news .tm{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;font-size:11px;color:var(--muted-2);text-transform:uppercase;margin-top:5px}
-  .east{display:flex;flex-direction:column}
-  .east .row{justify-content:space-between}
-  .east .tinfo{display:flex;align-items:center;gap:12px}
-  .east .rank{font-family:'Oswald';font-weight:700;font-size:13px;color:var(--muted-2);width:16px;text-align:center;flex:none}
-  .east .rstats{display:flex;align-items:baseline;gap:12px}
-  .east .gb{font-family:'Oswald';font-weight:600;font-size:13px;color:var(--muted-2);min-width:30px;text-align:right}
-  .east img{width:30px;height:30px;flex:none}
-  .east .tn{font-family:'Oswald';font-weight:500;font-size:16px;letter-spacing:.5px}
-  .east .rec{font-family:'Oswald';font-weight:600;font-size:15px;color:var(--gold)}
-  .east .me{outline:1px solid var(--line);background:rgba(255,255,255,.04)}
-  .east .me .tn{color:var(--gold)}
-  .pod a{display:flex;gap:12px;align-items:flex-start;padding:12px 16px;border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s}
-  .pod a:hover{background:rgba(255,255,255,.04)}
-  .pod .play{width:30px;height:30px;flex:none;border-radius:50%;background:var(--gold);color:var(--burgundy-deep);display:flex;align-items:center;justify-content:center;font-size:13px;margin-top:2px}
-  .pod .et{font-family:'Oswald';font-weight:500;font-size:15px;line-height:1.25}
-  .pod a:hover .et{color:var(--gold)}
-  .pod .ed{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;font-size:12px;color:var(--muted-2);text-transform:uppercase;margin-top:4px}
-  .podlinks{display:flex;gap:8px;padding:12px 16px;flex-wrap:wrap}
-  .podlinks a{font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:12px;text-transform:uppercase;padding:7px 12px;border:1px solid var(--line);border-radius:6px;color:var(--gold);transition:all .15s}
-  .podlinks a:hover{background:var(--gold);color:var(--burgundy-deep)}
-  .empty,.err{padding:22px 16px;color:var(--muted);font-family:'Barlow Condensed';font-size:15px;letter-spacing:.5px}
-  .err{color:var(--red)}
-  .loading{padding:22px 16px;color:var(--muted-2);font-family:'Barlow Condensed';letter-spacing:1px;font-size:14px;text-transform:uppercase}
-  footer{margin-top:30px;padding-top:16px;border-top:1px solid var(--line-soft);color:var(--muted-2);font-family:'Barlow Condensed';font-size:13px;letter-spacing:.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-  footer .g{color:var(--gold-dim)}
-  @media(max-width:900px){.panel{grid-column:span 12}.col-4,.col-8{grid-column:span 12}.hero-body{grid-template-columns:1fr}.count{justify-content:flex-start}.brand h1{font-size:24px}.matchup .vs{font-size:27px}}
-  .film-launch{position:fixed;right:22px;bottom:22px;z-index:40;display:flex;align-items:center;gap:10px;background:linear-gradient(160deg,var(--gold),var(--gold-dim));color:var(--burgundy-deep);font-family:'Oswald';font-weight:700;letter-spacing:1.5px;font-size:14px;text-transform:uppercase;border:none;border-radius:50px;padding:14px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.2);transition:transform .15s,box-shadow .15s}
-  .film-launch:hover{transform:translateY(-2px)}
-  .film-launch .ic{font-size:17px}
-  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.66);backdrop-filter:blur(3px);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
-  .scrim.open{opacity:1;pointer-events:auto}
-  .drawer{position:fixed;top:0;right:0;height:100%;width:min(420px,92vw);z-index:60;transform:translateX(102%);background:linear-gradient(180deg,var(--bg-2),var(--bg));border-left:1px solid var(--line);box-shadow:-20px 0 60px rgba(0,0,0,.6);transition:transform .3s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
-  .drawer.open{transform:translateX(0)}
-  .drawer-hd{display:flex;align-items:center;gap:12px;padding:18px 20px;background:linear-gradient(90deg,var(--burgundy),var(--burgundy-deep));border-bottom:1px solid var(--line)}
-  .drawer-hd .bar{width:4px;height:24px;background:var(--gold);border-radius:2px}
-  .drawer-hd h2{font-family:'Oswald';font-weight:700;letter-spacing:2px;font-size:19px;text-transform:uppercase;flex:1}
-  .drawer-hd button{background:none;border:1px solid var(--line);color:var(--gold);width:34px;height:34px;border-radius:8px;cursor:pointer;font-size:18px;line-height:1;transition:all .15s}
-  .drawer-hd button:hover{background:var(--gold);color:var(--burgundy-deep)}
-  .drawer-body{padding:18px 20px;overflow-y:auto;flex:1}
-  .drawer-body::-webkit-scrollbar{width:8px}.drawer-body::-webkit-scrollbar-thumb{background:var(--burgundy-bright);border-radius:6px}
-  .src{margin-bottom:24px}
-  .src-hd{display:flex;align-items:baseline;gap:8px;margin-bottom:12px}
-  .src-hd .nm{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:16px;text-transform:uppercase;color:var(--gold)}
-  .src-hd .tag{font-family:'Barlow Condensed';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2)}
-  .jump{display:flex;gap:8px;margin-bottom:12px}
-  .jump input{flex:1;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;color:var(--ink);font-family:'Barlow';font-size:14px;padding:10px 12px;outline:none}
-  .jump input:focus{border-color:var(--line)}
-  .jump button{background:var(--burgundy-bright);border:1px solid var(--line-soft);color:#fff;font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:13px;text-transform:uppercase;border-radius:8px;padding:0 16px;cursor:pointer;transition:background .15s}
-  .jump button:hover{background:var(--gold);color:var(--burgundy-deep)}
-  .links{display:flex;flex-direction:column;gap:8px}
-  .links a{display:flex;align-items:center;gap:10px;padding:12px 14px;background:var(--panel);border:1px solid var(--line-soft);border-radius:8px;font-family:'Barlow';font-weight:500;font-size:14.5px;transition:all .15s}
-  .links a:hover{border-color:var(--line);background:var(--panel-2);color:var(--gold);transform:translateX(3px)}
-  .links a .ar{margin-left:auto;color:var(--muted-2);font-size:13px}
-  .links a:hover .ar{color:var(--gold)}
-  .drawer-note{font-family:'Barlow Condensed';font-size:12.5px;letter-spacing:.4px;color:var(--muted-2);line-height:1.5;border-top:1px solid var(--line-soft);padding-top:14px}
-  .drawer-note .g{color:var(--gold-dim)}
-  .bet-launch{position:fixed;right:22px;bottom:84px;z-index:40;display:flex;align-items:center;gap:10px;background:var(--bg-2);color:var(--gold);font-family:'Oswald';font-weight:700;letter-spacing:1.5px;font-size:14px;text-transform:uppercase;border:1px solid var(--gold);border-radius:50px;padding:13px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .15s,background .15s,color .15s}
-  .bet-launch:hover{transform:translateY(-2px);background:var(--gold);color:var(--bg)}
-  .bet-launch .ic{font-size:16px}
-  .links a.feat{border-color:var(--gold);color:var(--gold)}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports AI Hub — Ask the Stats</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: #131b2e;
+            --accent-red: #d32f2f;
+            --btn-yellow: #ffca28;
+            --btn-yellow-hover: #ffb300;
+            --text-color: #ffffff;
+            --text-muted: #94a3b8;
+        }
 
-  .stats-scroll { display: block !important; height: auto !important; max-height: 440px !important; overflow-y: auto !important; overflow-x: auto !important; position: relative !important; border-bottom: 1px solid var(--line-soft); }
-  .stats-tabs{display:flex;gap:0;border-bottom:1px solid var(--line);overflow-x:auto;padding:0 4px}
-  .stats-tabs::-webkit-scrollbar{height:4px}.stats-tabs::-webkit-scrollbar-thumb{background:var(--burgundy-bright)}
-  .stab{font-family:'Oswald';font-weight:600;letter-spacing:1.5px;font-size:12px;text-transform:uppercase;padding:10px 16px;color:var(--muted-2);border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .15s;background:none;border-top:none;border-left:none;border-right:none}
-  .stab:hover{color:var(--ink)}.stab.active{color:var(--gold);border-bottom-color:var(--gold)}
-  .stats-tbl{width:100%;border-collapse:collapse;font-size:13.5px;display: table !important;}
-  .stats-tbl thead tr{background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:2}
-  .stats-tbl th{font-family:'Oswald';font-weight:600;letter-spacing:1px;font-size:11px;text-transform:uppercase;color:var(--muted-2);padding:8px 10px;text-align:right;white-space:nowrap;cursor:pointer;user-select:none;background:var(--panel-2)}
-  .stats-tbl th:first-child{text-align:left;position:sticky;left:0;background:var(--panel-2);z-index:3}
-  .stats-tbl th.sorted{color:var(--gold)}
-  .stats-tbl th:hover{color:var(--ink)}
-  .stats-tbl td{padding:7px 10px;text-align:right;border-bottom:1px solid rgba(255,255,255,.03);font-family:'Barlow Condensed';font-size:13.5px;letter-spacing:.3px;white-space:nowrap}
-  .stats-tbl td:first-child{text-align:left;font-weight:600;max-width:180px;overflow:hidden;text-overflow:ellipsis;position:sticky;left:0;background:var(--panel);z-index:1}
-  .stats-tbl tr:hover td{background:rgba(255,255,255,.04)}
-  .stats-tbl tr:hover td:first-child{background:rgba(255,255,255,.04)}
-  .stats-updated{font-family:'Barlow Condensed';font-size:12px;letter-spacing:.5px;color:var(--muted-2);padding:7px 16px;text-align:right;border-top:1px solid var(--line-soft);background:rgba(255,255,255,.02)}
-  .stats-err{padding:20px 16px;color:var(--muted);font-family:'Barlow Condensed';font-size:14px}
-  .sort-arrow{font-size:9px;margin-left:3px;opacity:.6}
-  .stats-reset-btn{background:none;border:1px solid var(--line);color:var(--gold-dim);font-family:'Oswald';font-weight:600;font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px;cursor:pointer;margin-left:8px;transition:all .15s}
-  .stats-reset-btn:hover{background:var(--gold);color:var(--burgundy-deep);border-color:var(--gold)}
-  .ai-body{padding:16px}
-  .ai-input-row{display:flex;gap:10px;align-items:flex-start}
-  .ai-input{flex:1;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:'Barlow';font-size:15px;padding:12px 14px;outline:none;resize:none;min-height:46px;max-height:120px;line-height:1.4;transition:border-color .15s}
-  .ai-input:focus{border-color:var(--gold)}
-  .ai-input::placeholder{color:var(--muted-2)}
-  .ai-btn{background:linear-gradient(160deg,var(--burgundy-bright),var(--burgundy-deep));border:1px solid var(--line);color:var(--gold);font-family:'Oswald';font-weight:700;letter-spacing:1px;font-size:13px;text-transform:uppercase;border-radius:8px;padding:12px 20px;cursor:pointer;white-space:nowrap;transition:all .15s;flex:none}
-  .ai-btn:hover{background:var(--gold);color:var(--burgundy-deep);border-color:var(--gold)}
-  .ai-btn:disabled{opacity:.5;cursor:not-allowed}
-  .ai-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
-  .ai-chip{font-family:'Barlow Condensed';font-weight:600;font-size:12px;letter-spacing:.5px;padding:5px 12px;border:1px solid var(--line-soft);border-radius:20px;color:var(--muted);cursor:pointer;transition:all .15s;background:rgba(255,255,255,.03)}
-  .ai-chip:hover{border-color:var(--line);color:var(--gold);background:rgba(243,193,75,.06)}
-  .ai-answer{margin-top:16px;padding:16px;background:rgba(255,255,255,.03);border:1px solid var(--line-soft);border-radius:8px;font-family:'Barlow';font-size:14.5px;line-height:1.7;color:var(--ink);min-height:60px;display:none}
-  .ai-answer.visible{display:block}
-  .ai-answer strong{color:var(--gold)}
-  .ai-answer .ai-thinking{color:var(--muted-2);font-family:'Barlow Condensed';letter-spacing:1px;font-size:13px;text-transform:uppercase;animation:blink 1.2s infinite}
-  @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-  .ai-footer{margin-top:10px;font-family:'Barlow Condensed';font-size:11px;letter-spacing:.5px;color:var(--muted-2);text-align:right}
-</style>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 16px;
+            padding-bottom: 90px; /* Room for floating action buttons */
+        }
+
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .search-bar {
+            flex: 1;
+            padding: 12px 16px;
+            background-color: var(--card-bg);
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            color: var(--text-color);
+            font-size: 16px;
+            box-sizing: border-box;
+            margin-right: 10px;
+        }
+
+        .version-tag {
+            color: var(--text-muted);
+            font-size: 12px;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .nav-tab {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid #1e293b;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: background-color 0.2s, border-color 0.2s;
+        }
+
+        .nav-tab.active {
+            background-color: var(--accent-red);
+            border-color: var(--accent-red);
+        }
+
+        .tab-content {
+            display: none !important;
+        }
+
+        .tab-content.active {
+            display: block !important;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            border: 1px solid #1e293b;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .metric-box {
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid #1e293b;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .metric-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .metric-value {
+            font-size: 15px;
+            font-weight: bold;
+        }
+
+        .stat-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .stat-table th, .stat-table td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #1e293b;
+        }
+
+        .stat-table th {
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+        
+        .badge {
+            background-color: rgba(211, 47, 47, 0.2);
+            color: #ef4444;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        /* Floating Trays (Ported directly from Cardinals Watch) */
+        .film-launch{position:fixed;right:22px;bottom:22px;z-index:40;display:flex;align-items:center;gap:10px;background:linear-gradient(160deg,var(--btn-yellow),#c79a3a);color:#000;font-weight:700;letter-spacing:1px;font-size:14px;text-transform:uppercase;border:none;border-radius:50px;padding:14px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.55),0 0 0 1px rgba(255,255,255,.2);transition:transform .15s}
+        .film-launch:hover{transform:translateY(-2px)}
+        
+        .bet-launch{position:fixed;right:22px;bottom:84px;z-index:40;display:flex;align-items:center;gap:10px;background:var(--card-bg);color:var(--btn-yellow);font-weight:700;letter-spacing:1px;font-size:14px;text-transform:uppercase;border:1px solid var(--btn-yellow);border-radius:50px;padding:13px 22px;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.5);transition:transform .15s,background .15s,color .15s}
+        .bet-launch:hover{transform:translateY(-2px);background:var(--btn-yellow);color:#000}
+    </style>
 </head>
 <body>
-<div class="ticker"><div class="tag">BIRD WIRE</div><div class="track" id="ticker"><span>Loading the latest around the league…</span></div></div>
-<div class="wrap">
-  <header>
-    <div class="head">
-      <div class="brand">
-        <div class="crest">STL</div>
-        <div><h1>CARDINALS <span class="g">WATCH</span></h1><div class="sub">Your Team · Every Day · The Birds</div></div>
-      </div>
-      <div class="status"><div class="live"><span class="dot"></span> Live Feed</div><div class="upd" id="updated">Syncing…</div></div>
-    </div>
-    <div class="hero">
-      <div class="hero-top"><div class="lbl" id="heroLbl">Next Up</div><div class="rec" id="record">—</div></div>
-      <div class="hero-body">
-        <div class="matchup"><div class="when" id="gameWhen">—</div><div class="vs" id="gameVs">Loading schedule…</div><div class="meta" id="gameMeta"></div></div>
-        <div class="count" id="countdown"></div>
-      </div>
-    </div>
-  </header>
-  <div class="grid">
-    <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Roster</h2><span class="ct" id="rosterCt"></span></div><div class="p-body scroll" id="roster"><div class="loading">Pulling roster…</div></div></section>
-    <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>Injured List</h2><span class="ct" id="injCt"></span></div><div class="p-body scroll" id="injuries"><div class="loading">Checking the report…</div></div></section>
 
-    <section class="panel col-12">
-      <div class="p-head"><span class="bar"></span><h2>Ask the Stats</h2><span class="ct">AI · B-Ref Database</span></div>
-      <div class="ai-body">
-        <div class="ai-input-row">
-          <textarea class="ai-input" id="aiInput" placeholder="Ask anything about Cardinals stats…" rows="1"></textarea>
-          <button class="ai-btn" id="aiBtn">Ask</button>
+    <div class="header-row">
+        <input type="text" class="search-bar" placeholder="Ask the Stats...">
+        <span class="version-tag">v3.5-FLOATING-TRAYS</span>
+    </div>
+
+    <!-- Navigation Tabs on Top -->
+    <div class="nav-tabs">
+        <button class="nav-tab active" data-tab="mlb">MLB GRID</button>
+        <button class="nav-tab" data-tab="nfl">NFL GRID</button>
+        <button class="nav-tab" data-tab="nascar">NASCAR</button>
+        <button class="nav-tab" data-tab="mls">MLS GRID</button>
+    </div>
+
+    <!-- MLB TAB -->
+    <div id="mlb" class="tab-content active">
+        <div class="card">
+            <h2>
+                St. Louis Cardinals Command Center 
+                <span class="badge">Live Gameday</span>
+            </h2>
+            <p style="color: var(--text-muted);">Busch Stadium Homestand | Game vs. Chicago Cubs</p>
+            
+            <div class="metrics-grid">
+                <div class="metric-box">
+                    <div class="metric-label">Today's Probable Starter</div>
+                    <div class="metric-value">Andre Pallante (RHP)</div>
+                </div>
+                <div class="metric-box">
+                    <div class="metric-label">Vegas Line / O/U</div>
+                    <div class="metric-value">STL -135 | O/U 8.5</div>
+                </div>
+            </div>
         </div>
-        <div class="ai-chips" id="aiChips">
-          <span class="ai-chip">Who leads the team in HR?</span>
-          <span class="ai-chip">Best ERA among starters</span>
-          <span class="ai-chip">Top 3 in WAR</span>
-          <span class="ai-chip">Jordan Walker's stats</span>
+
+        <div class="card">
+            <h2>Key Roster Matchups & Lineup Tracking</h2>
+            <p style="color: var(--text-muted);">Core Stat Leaders & Splits</p>
+            
+            <table class="stat-table">
+                <tr>
+                    <th>Player</th>
+                    <th>Position</th>
+                    <th>Recent Trend / Split</th>
+                </tr>
+                <tr>
+                    <td><strong>Masyn Winn</strong></td>
+                    <td>Shortstop</td>
+                    <td>Multi-hit threat, active table-setter</td>
+                </tr>
+                <tr>
+                    <td><strong>Jordan Walker</strong></td>
+                    <td>Right Fielder</td>
+                    <td>Strong metrics vs LHP power layout</td>
+                </tr>
+                <tr>
+                    <td><strong>Alec Burleson</strong></td>
+                    <td>First Baseman</td>
+                    <td>Consistent contact / Clutch RBI profile</td>
+                </tr>
+            </table>
         </div>
-        <div class="ai-answer" id="aiAnswer"></div>
-        <div class="ai-footer" id="aiFooter"></div>
-      </div>
-    </section>
 
-    <section class="panel col-12" id="statsPanel">
-      <div class="p-head">
-        <span class="bar"></span>
-        <h2>Cardinals Stats</h2>
-        <span class="ct">B-Ref Database · Updated Weekly</span>
-        <button class="stats-reset-btn" id="statsReset">↻ Reset</button>
-      </div>
-      <div class="stats-tabs" id="statsTabs">
-        <button class="stab active" data-pane="batting">Batting</button>
-        <button class="stab" data-pane="pitching">Pitching</button>
-        <button class="stab" data-pane="fielding">Fielding</button>
-        <button class="stab" data-pane="valueBatting">WAR · Batting</button>
-        <button class="stab" data-pane="valuePitching">WAR · Pitching</button>
-        <button class="stab" data-pane="appearances">Appearances</button>
-        <button class="stab" data-pane="fortyMan">40-Man Roster</button>
-        <button class="stab" data-pane="schedule">Schedule</button>
-      </div>
-      <div class="stats-scroll" id="statsBody"><div class="loading">Loading stats from B-Ref database…</div></div>
-      <div class="stats-updated" id="statsUpdated">Click any column header to sort ↑↓</div>
-    </section>
-
-    <section class="panel col-8"><div class="p-head"><span class="bar"></span><h2>Around the League</h2><span class="ct">MLB Wire</span></div><div class="p-body scroll news" id="news"><div class="loading">Loading headlines…</div></div></section>
-    <section class="panel col-4"><div class="p-head"><span class="bar"></span><h2>NL Central</h2><span class="ct">Standings</span></div><div class="p-body east" id="east"><div class="loading">Loading division…</div></div></section>
-    <section class="panel col-12"><div class="p-head"><span class="bar"></span><h2>Locked On Cardinals — Latest Episodes</h2><span class="ct">Daily Pod</span></div><div class="p-body scroll news" id="pod"><div class="loading">Fetching episodes…</div></div></section>
-  </div>
-  <footer>
-    <div>Data: <span class="g">ESPN</span> · <span class="g">Baseball Reference</span> · <span class="g">iTunes</span>.</div>
-    <div>Auto-refresh every 5 min · Stats updated weekly via B-Ref export</div>
-  </footer>
-</div>
-<button class="film-launch" id="filmOpen"><span class="ic">🎞</span> Film Room</button>
-<div class="scrim" id="scrim"></div>
-<aside class="drawer" id="drawer" aria-hidden="true">
-  <div class="drawer-hd"><span class="bar"></span><h2>Film Room & Analytics</h2><button id="filmClose" aria-label="Close">✕</button></div>
-  <div class="drawer-body">
-    <div class="src">
-      <div class="src-hd"><span class="nm">Live Video Room</span><span class="tag">Highlights</span></div>
-      <div class="links">
-        <a class="feat" href="https://www.mlb.com/video/search?q=TeamId+%3D+%5B138%5D" target="_blank" rel="noopener">▶ MLB Film Room <span class="ar">↗</span></a>
-      </div>
+        <div class="card">
+            <h2>Series Schedule & Broadcast Feed</h2>
+            <p style="color: var(--text-muted);">
+                Wed, Jul 29 (6:45 PM): vs. Chicago Cubs (Bally Sports / MLB.tv)<br>
+                Thu, Jul 30 (1:15 PM): vs. Chicago Cubs (Bally Sports / MLB.tv)<br>
+                Fri, Jul 31 (7:07 PM): at Toronto Blue Jays (Rogers Centre)
+            </p>
+        </div>
     </div>
-  </div>
-</aside>
-<script>
-const SPORT_PATH="baseball/mlb",SITE=`https://site.api.espn.com/apis/site/v2/sports/${SPORT_PATH}`,TEAM="stl",TEAM_RE="cardinals|st. louis";
-const DIVISION=[{abbr:"stl",name:"Cardinals"},{abbr:"chc",name:"Cubs"},{abbr:"mil",name:"Brewers"},{abbr:"cin",name:"Reds"},{abbr:"pit",name:"Pirates"}];
-const PODCAST_APPLE_ID="1371034395";
-const POD_NAME="Locked On Cardinals";
-const STATS_JSON="https://raw.githubusercontent.com/rodmann4210-bot/cardinals_watch/main/cardinals_stats.json";
 
-let nextGameDate=null,ROSTER_NAMES=[];const $=id=>document.getElementById(id);
-async function getJSON(u){const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw new Error(r.status);return await r.json();}
-function relTime(d){const s=(Date.now()-new Date(d).getTime())/1000;if(s<3600)return Math.max(1,Math.floor(s/60))+"m ago";if(s<86400)return Math.floor(s/3600)+"h ago";return Math.floor(s/86400)+"d ago";}
+    <!-- NFL TAB -->
+    <div id="nfl" class="tab-content">
+        <div class="card">
+            <h2>NFL Command Center</h2>
+            <p style="color: var(--text-muted);">Gridiron feeds loading...</p>
+        </div>
+    </div>
 
-async function loadSchedule(){
-  try{
-    const data=await getJSON(`${SITE}/teams/${TEAM}/schedule`),events=(data.events||[]).slice().sort((a,b)=>new Date(a.date)-new Date(b.date));
-    let next=events.find(e=>new Date(e.date).getTime()>Date.now()-3*3600*1000)||events[events.length-1];
-    if(!next){$("gameVs").textContent="Schedule TBD";return;}
-    nextGameDate=new Date(next.date);const comp=next.competitions[0]||{},cs=comp.competitors||[];
-    const us=cs.find(c=>String(c.team.abbreviation).toLowerCase()===TEAM)||{},them=cs.find(c=>String(c.team.abbreviation).toLowerCase()!==TEAM)||{};
-    $("gameVs").innerHTML=(us.homeAway==="home"?"vs ":"@ ")+`<span class="opp">${them.team.shortDisplayName||"Opponent"}</span>`;
-    $("gameWhen").textContent=nextGameDate.toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric"});
-    $("gameMeta").textContent=nextGameDate.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})+(comp.venue?` \u00B7 ${comp.venue.fullName}`:"");
-  }catch(e){$("gameVs").textContent="Schedule unavailable";}
-}
+    <!-- NASCAR TAB -->
+    <div id="nascar" class="tab-content">
+        <div class="card">
+            <h2>NASCAR Cup Series Hub</h2>
+            <p style="color: var(--text-muted);">Track stats and telemetry loading...</p>
+        </div>
+    </div>
 
-function tickCountdown(){
-  if(!nextGameDate)return;let diff=Math.floor((nextGameDate.getTime()-Date.now())/1000);
-  if(diff<0){$("countdown").innerHTML='<div class="unit"><div class="num">LIVE</div><div class="cap">Game Time</div></div>';return;}
-  const d=Math.floor(diff/86400);diff-=d*86400;const h=Math.floor(diff/3600);diff-=h*3600;const m=Math.floor(diff/60),s=diff-m*60;
-  const u=(n,c)=>`<div class="unit"><div class="num">${String(n).padStart(2,"0")}</div><div class="cap">${c}</div></div>`;
-  $("countdown").innerHTML=u(d,"Days")+'<div class="colon">:</div>'+u(h,"Hrs")+'<div class="colon">:</div>'+u(m,"Min")+'<div class="colon">:</div>'+u(s,"Sec");
-}
+    <!-- MLS TAB -->
+    <div id="mls" class="tab-content">
+        <div class="card">
+            <h2>St. Louis CITY SC Command Center</h2>
+            <p style="color: var(--text-muted);">2026 Season | Western Conference Standing: 10th (19 Pts)</p>
+        </div>
+        <div class="card">
+            <h2>Upcoming Matches</h2>
+            <p style="color: var(--text-muted);">Match schedule feeds loading...</p>
+        </div>
+    </div>
 
-async function loadRoster(){
-  try{
-    const data=await getJSON(`${SITE}/teams/${TEAM}/roster`),groups=data.athletes||[];let html="",total=0,injuries=[];
-    groups.forEach(g=>{
-      if(!g.items)return;html+=`<div class="grouphd">${g.position}</div>`;
-      g.items.forEach(p=>{
-        total++;const pos=p.position?.abbreviation||"";const nm=p.fullName||"";ROSTER_NAMES.push(nm);
-        let inj="";if(p.injuries?.length){const st=p.injuries[0].status||"";inj=`<span class="badge out">${st}</span>`;injuries.push({name:nm,pos,status:st});}
-        html+=`<div class="row"><span class="jersey">${p.jersey||"–"}</span><span class="nm">${nm}</span>${inj}<span class="pos">${pos}</span></div>`;
-      });
-    });
-    $("roster").innerHTML=html;$("rosterCt").textContent=`${total} players`;
-    $("injuries").innerHTML=injuries.length?injuries.map(p=>`<div class="row"><span class="nm">${p.name}</span><span class="badge out">${p.status}</span><span class="pos">${p.pos}</span></div>`).join(""):`<div class="empty">No active injuries.</div>`;
-    $("injCt").textContent=injuries.length;
-  }catch(e){$("roster").innerHTML='<div class="err">Roster unavailable.</div>';}
-}
+    <!-- Floating Action Trays Ported From Cardinals Watch -->
+    <button class="bet-launch" onclick="alert('Betting Panel Triggered')">📊 Match Betting</button>
+    <button class="film-launch" onclick="window.open('https://www.mlb.com/video/search?q=TeamId+%3D+%5B138%5D', '_blank')">🎞 Film Room</button>
 
-async function loadNews(){
-  try{
-    const data=await getJSON(`${SITE}/news?limit=10`),arts=data.articles||[];
-    $("news").innerHTML=arts.map(a=>`<a href="${a.links?.web?.href||"#"}" target="_blank" rel="noopener"><div class="hl">${a.headline}</div><div class="ds">${a.description||""}</div><div class="tm">${a.published?relTime(a.published):""}</div></a>`).join("");
-    $("ticker").innerHTML=arts.map(a=>`<span>${a.headline}</span>`).join("");
-  }catch(e){}
-}
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
 
-/* Upgraded to parse live win-loss statistics and calculate actual percentage sorting boundaries */
-async function loadEast(){
-  try{
-    const res=await Promise.all(DIVISION.map(t=>getJSON(`${SITE}/teams/${t.abbr}`)));
-    
-    // Parse records and compute win percentage math locally before sorting
-    const processedTeams = res.map(d => {
-      const t = d.team;
-      const recSummary = t.record?.items[0]?.summary || "0-0";
-      const parts = recSummary.split("-");
-      const wins = parseInt(parts[0]) || 0;
-      const losses = parseInt(parts[1]) || 0;
-      const winPct = (wins + losses) > 0 ? (wins / (wins + losses)) : 0;
-      
-      return {
-        teamObj: t,
-        summary: recSummary,
-        winPct: winPct
-      };
-    });
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
 
-    // Enforce high-to-low mathematical alignment ranking
-    processedTeams.sort((a, b) => b.winPct - a.winPct);
+            const targetContent = document.getElementById(tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
 
-    // Dynamic row rendering
-    $("east").innerHTML = processedTeams.map((item, index) => {
-      const t = item.teamObj;
-      const me = t.abbreviation.toLowerCase() === TEAM ? " me" : "";
-      return `<div class="row${me}"><div class="tinfo"><span class="rank">${index + 1}</span><img src="${t.logos?.[0]?.href || ""}" alt=""><span class="tn">${t.shortDisplayName}</span></div><span class="rec">${item.summary}</span></div>`;
-    }).join("");
-    
-  } catch(e) {
-    $("east").innerHTML = '<div class="err">Division standings layout stream timed out.</div>';
-  }
-}
+            const targetButton = document.querySelector(`.nav-tab[data-tab="${tabId}"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+            }
 
-async function loadPodcast(){
-  try{
-    const look=await getJSON(`https://itunes.apple.com/lookup?id=${PODCAST_APPLE_ID}&entity=podcast`);
-    const feedUrl=look.results?.[0]?.feedUrl;if(!feedUrl)throw new Error();
-    const rss=await getJSON(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=3`);
-    if(!rss.items||!rss.items.length)throw new Error();
-    $("pod").innerHTML=rss.items.map(it=>{
-      const when=it.pubDate?new Date(it.pubDate).toLocaleDateString(undefined,{month:"short",day:"numeric"}):"";
-      return `<a href="${it.link}" target="_blank" rel="noopener"><div class="hl">${it.title}</div><div class="ds">${it.description||""}</div><div class="tm">${when}</div></a>`;
-    }).join("");
-  }catch(e){
-    $("pod").innerHTML=`<div class="podlinks">
-      <a href="https://podcasts.apple.com/us/podcast/id${PODCAST_APPLE_ID}" target="_blank" rel="noopener">▶ Listen on Apple Podcasts</a>
-    </div>`;
-  }
-}
-
-function refreshAll(){loadSchedule();loadRoster();loadNews();loadEast();loadPodcast();document.getElementById("updated").textContent="Updated "+new Date().toLocaleTimeString();}
-refreshAll();setInterval(refreshAll,300000);setInterval(tickCountdown,1000);
-
-const STATS_CFG={
-  batting:{sheet:'Batting',cols:['Player','Age','Pos','G','PA','AB','R','H','2B','3B','HR','RBI','SB','CS','BB','SO','BA','OBP','SLG','OPS','OPS+','WAR'],sort:'HR',dir:-1},
-  pitching:{sheet:'Cardinals_Pitching',cols:['Player','Age','Pos','W','L','ERA','G','GS','IP','H','BB','SO','HR','WHIP','SO9','BB9','WAR'],sort:'WAR',dir:-1},
-  fielding:{sheet:'Cardinals_Fielding',cols:['Player','Pos','G','Inn','PO','A','E','DP','Fld%','RF/G'],sort:'G',dir:-1},
-  valueBatting:{sheet:'value_batting',cols:['Player','Age','PA','Rbat','Rbaser','Rdp','Rfield','Rpos','RAA','WAA','Rrep','RAR','WAR','oWAR','dWAR','Pos'],sort:'WAR',dir:-1},
-  valuePitching:{sheet:'value_pitching',cols:['Player','Age','IP','G','GS','RA9','RA9opp','PPFp','RA9avg','RAA','WAA','WAR','RAR'],sort:'WAR',dir:-1},
-  appearances:{sheet:'Appearances',cols:['Player','Age','G','GS','P','C','1B','2B','3B','SS','LF','CF','RF','OF','DH'],sort:'G',dir:-1},
-  fortyMan:{sheet:'40Man',cols:['Rk','Uni','Player','Birth','OnActv','IL','Age','B','T','Ht','Wt','DoB','1stYr'],sort:'Rk',dir:1},
-  schedule:{sheet:'Schedule',cols:['Gm#','Date','Tm','Opp','W/L','R','RA','Inn','W-L','Rank','GB','Win','Loss','Save','Time','D/N','Streak'],sort:'Gm#',dir:1}
-};
-let statsData=null,curPane='batting';const sortState={};
-function fmt(v){return v===null||v===undefined||String(v).trim()===''?'—':String(v).trim();}
-
-function renderStats(pane){
-  if(!statsData)return;const cfg=STATS_CFG[pane];
-  const rows=(statsData[cfg.sheet]||[]).filter(r=>{
-    if(pane==='schedule') return r['Gm#']!==undefined&&r['Gm#']!=='';
-    return (r['Player']||r['Name']||'')!=='Team Totals';
-  });
-  if(!rows.length){$('statsBody').innerHTML='<div class="stats-err">No data found in sheet: '+cfg.sheet+'</div>';return;}
-  if(!sortState[pane])sortState[pane]={col:cfg.sort,dir:cfg.dir};const {col:sc,dir:sd}=sortState[pane];
-  const avail=cfg.cols.filter(c=>rows[0].hasOwnProperty(c)||c==='Player');
-  let h='<table class="stats-tbl"><thead><tr>';
-  avail.forEach(c=>{const isSorted=c===sc;h+=`<th class="${isSorted?'sorted':''}" data-col="${c}">${c}${isSorted?(sd===-1?' ▼':' ▲'):''}</th>`;});
-  h+='</tr></thead><tbody>';
-  const sorted=[...rows].sort((a,b)=>{const av=a[sc],bv=b[sc],an=parseFloat(av),bn=parseFloat(bv);return (!isNaN(an)&&!isNaN(bn)?(an-bn):String(av||'').localeCompare(String(bv||'')))*sd;});
-  sorted.forEach(row=>{
-    h+='<tr>';avail.forEach(c=>{
-      let val=row[c]||row['Name']||row['Player']||'';
-      h+=`<td>${fmt(val)}</td>`;
-    });h+='</tr>';
-  });
-  $('statsBody').innerHTML=h+'</tbody></table>';
-  $('statsBody').querySelectorAll('th[data-col]').forEach(th=>{th.addEventListener('click',()=>{const col=th.dataset.col;sortState[pane]={col,dir:sortState[pane]?.col===col?sortState[pane].dir*-1:-1};renderStats(pane);});});
-}
-
-async function loadStats(){try{statsData=await getJSON(STATS_JSON);renderStats(curPane);}catch(e){$('statsBody').innerHTML='<div class="stats-err">Failed to fetch database file.</div>';}}
-$('statsTabs').addEventListener('click',e=>{const b=e.target.closest('.stab');if(!b)return;document.querySelectorAll('.stab').forEach(x=>x.classList.remove("active"));b.classList.add('active');curPane=b.dataset.pane;renderStats(curPane);});
-loadStats();
-
-function handleSearch(query) {
-  if (!statsData || !query.trim()) return;
-  const ans = $("aiAnswer");
-  ans.classList.add("visible");
-  ans.innerHTML = '<div class="ai-thinking">Scanning Baseball-Reference Database...</div>';
-  
-  setTimeout(() => {
-    const q = query.toLowerCase().trim();
-    let responseHtml = "";
-
-    if (q.includes("pitching wins") || q.includes("most wins") || (q.includes("wins") && q.includes("pitcher"))) {
-      const pitchers = statsData["Cardinals_Pitching"] || [];
-      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.W)));
-      if (valid.length) {
-        valid.sort((a, b) => parseFloat(b.W) - parseFloat(a.W));
-        responseHtml = `The team leader in pitching wins is <strong>${valid[0].Player}</strong> with a record of <strong>${valid[0].W}-${valid[0].L}</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.W || 0} wins).`;
-      }
-    }
-    else if (q.includes("strikeout") || q.includes("most so") || q.includes("leads in so")) {
-      const pitchers = statsData["Cardinals_Pitching"] || [];
-      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && !isNaN(parseFloat(p.SO)));
-      if (valid.length) {
-        valid.sort((a, b) => parseFloat(b.SO) - parseFloat(a.SO));
-        responseHtml = `<strong>${valid[0].Player}</strong> leads the pitching staff with <strong>${valid[0].SO} strikeouts</strong> over ${valid[0].IP} innings.`;
-      }
-    }
-    else if (q.includes("leader") || q.includes("leads") || q.includes("most hr") || q.includes("home run") || q.includes("hr")) {
-      const batters = statsData["Batting"] || [];
-      const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.HR)));
-      if (valid.length) {
-        valid.sort((a, b) => parseFloat(b.HR) - parseFloat(a.HR));
-        responseHtml = `The current team home run leader is <strong>${valid[0].Player}</strong> with <strong>${valid[0].HR} HR</strong>, followed by ${valid[1]?.Player || "N/A"} (${valid[1]?.HR || 0} HR).`;
-      }
-    } 
-    else if (q.includes("era") || q.includes("best starter")) {
-      const pitchers = statsData["Cardinals_Pitching"] || [];
-      const valid = pitchers.filter(p => p.Player && p.Player !== "Team Totals" && parseFloat(p.IP) > 20 && !isNaN(parseFloat(p.ERA)));
-      if (valid.length) {
-        valid.sort((a, b) => parseFloat(a.ERA) - parseFloat(b.ERA));
-        responseHtml = `The qualifying pitcher with the lowest ERA on the team is <strong>${valid[0].Player}</strong> with a sparkling <strong>${valid[0].ERA} ERA</strong>.`;
-      }
-    } 
-    else if (q.includes("war") || q.includes("top 3")) {
-      const batters = statsData["Batting"] || [];
-      const valid = batters.filter(b => b.Player && b.Player !== "Team Totals" && !isNaN(parseFloat(b.WAR)));
-      if (valid.length) {
-        valid.sort((a, b) => parseFloat(b.WAR) - parseFloat(a.WAR));
-        responseHtml = `The top players ranked by total Wins Above Replacement (WAR) are:<br>1. <strong>${valid[0].Player}</strong> (${valid[0].WAR} WAR)<br>2. <strong>${valid[1]?.Player || "N/A"}</strong> (${valid[1]?.WAR || 0} WAR)<br>3. <strong>${valid[2]?.Player || "N/A"}</strong> (${valid[2]?.WAR || 0} WAR).`;
-      }
-    } 
-    else {
-      let foundPlayer = null;
-      let bStats = null;
-      let pStats = null;
-      
-      for (const sheet of ["Batting", "Cardinals_Pitching"]) {
-        const match = (statsData[sheet] || []).find(r => r.Player && q.includes(r.Player.toLowerCase()));
-        if (match) {
-          foundPlayer = match.Player;
-          if (sheet === "Batting") bStats = match;
-          if (sheet === "Cardinals_Pitching") pStats = match;
+            localStorage.setItem('activeSportsTab', tabId);
         }
-      }
 
-      if (foundPlayer) {
-        if (bStats) {
-          responseHtml = `<strong>${foundPlayer}</strong>: hitting <strong>.${String(bStats.BA).split('.')[1] || bStats.BA}</strong> with <strong>${bStats.HR} HR</strong>, <strong>${bStats.RBI} RBI</strong>, and a <strong>${bStats.WAR} WAR</strong>.`;
-        } else if (pStats) {
-          responseHtml = `<strong>${foundPlayer}</strong>: carries a <strong>${pStats.ERA} ERA</strong> with a <strong>${pStats.W}-${pStats.L}</strong> record and <strong>${pStats.SO} SO</strong>.`;
-        }
-      } else {
-        responseHtml = `I searched the database for "${query}" but couldn't find a matching calculation. Try asking 'Who leads the team in pitching wins?' or 'Jordan Walker's stats'.`;
-      }
-    }
+        document.querySelectorAll('.nav-tab').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
 
-    ans.innerHTML = responseHtml;
-    $("aiFooter").textContent = "Source: Local cardinals_stats.json connection profile";
-  }, 400);
-}
-
-$("aiBtn").addEventListener("click", () => {
-  handleSearch($("aiInput").value);
-});
-
-$("aiInput").addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    handleSearch($("aiInput").value);
-  }
-});
-
-$("aiChips").addEventListener("click", (e) => {
-  const chip = e.target.closest(".ai-chip");
-  if (!chip) return;
-  $("aiInput").value = chip.textContent;
-  handleSearch(chip.textContent);
-});
-
-$("filmOpen").addEventListener("click",()=>{$("scrim").classList.add("open");$("drawer").classList.add("open");});
-$("filmClose").addEventListener("click",()=>{$("scrim").classList.remove("open");$("drawer").classList.remove("open");});
-</script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTab = localStorage.getItem('activeSportsTab');
+            if (savedTab && document.getElementById(savedTab)) {
+                switchTab(savedTab);
+            }
+        });
+    </script>
 </body>
 </html>
